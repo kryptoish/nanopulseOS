@@ -22,6 +22,12 @@ I am currently working on developing a lightweight, modular OS kernel for resour
 
 ---
 
+### **How to build and run the project** 
+
+ - WIP
+
+---
+
 ### **Technologies and Tools**  
 
 | **Category**            | **Tools/Technologies**                                     |
