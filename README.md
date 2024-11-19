@@ -3,7 +3,7 @@
 ---
 
 ### **Objective**  
-Develop a lightweight, modular OS kernel for resource-constrained microcontrollers (no MMU) with features like real-time scheduling, IPC, and peripheral drivers, integrating concepts from bare-metal development, RTOS design, and kernel architecture.  
+I am currently working on developing a lightweight, modular OS kernel for resource-constrained microcontrollers (no MMU) with features like real-time scheduling, IPC, and peripheral drivers, integrating concepts from bare-metal development, RTOS design, and kernel architecture.  
 
 ---
 
