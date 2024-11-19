@@ -1,9 +1,9 @@
-## **Project Title**: **Modular Embedded OS Kernel with Real-Time Capabilities**  
+**NanoPulse OS: A Modular RTOS Kernel**  
 
 ---
 
 ### **Objective**  
-I am currently working on developing a lightweight, modular OS kernel for resource-constrained microcontrollers (no MMU) with features like real-time scheduling, IPC, and peripheral drivers, integrating concepts from bare-metal development, RTOS design, and kernel architecture.  
+Currently under development of a lightweight, modular OS kernel for resource-constrained microcontrollers (no MMU) with features like real-time scheduling, IPC, and peripheral drivers, integrating concepts from bare-metal development, RTOS design, and kernel architecture. Will add a tetris LCD example in the future. 
 
 ---
 
