@@ -28,6 +28,12 @@ I am currently working on developing a lightweight, modular OS kernel for resour
 
 ---
 
+### **Basic usage instructions** 
+
+ - WIP
+
+---
+
 ### **Technologies and Tools**  
 
 | **Category**            | **Tools/Technologies**                                     |
