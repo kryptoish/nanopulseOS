@@ -1,75 +1,45 @@
-### **Project Title**: **Modular Embedded OS Kernel with Real-Time Capabilities**  
+## **Project Title**: **Modular Embedded OS Kernel with Real-Time Capabilities**  
 
 ---
 
 ### **Objective**  
-Create a lightweight, modular embedded operating system kernel designed for microcontrollers with limited resources (no MMU). This OS will support real-time scheduling, peripheral drivers, and basic inter-process communication (IPC), combining concepts from bare-metal development, RTOS design, and kernel architecture.  
+Develop a lightweight, modular OS kernel for resource-constrained microcontrollers (no MMU) with features like real-time scheduling, IPC, and peripheral drivers, integrating concepts from bare-metal development, RTOS design, and kernel architecture.  
 
 ---
 
 ### **Key Features**  
 
-1. **Custom Bootloader**  
-   - Design a minimal bootloader to initialize hardware, load the kernel, and provide secure firmware update functionality.  
-
-2. **Task Scheduler**  
-   - Implement a preemptive priority-based scheduler with real-time task support.  
-   - Add support for dynamic task creation and deletion.  
-
-3. **Memory Management**  
-   - Build a simple heap allocator and memory segmentation for task isolation, even without an MMU.  
-
-4. **Device Drivers**  
-   - Write low-level drivers for UART, I2C, and SPI communication.  
-   - Implement a virtual filesystem (e.g., FAT) for accessing external storage.  
-
-5. **Inter-Process Communication (IPC)**  
-   - Develop IPC mechanisms like message queues, semaphores, and event flags for task communication.  
-
-6. **Hardware Abstraction Layer (HAL)**  
-   - Abstract hardware specifics to make the OS portable across different microcontroller families.  
-
-7. **Debugging and Monitoring**  
-   - Add kernel debugging features like logging, task tracing, and performance metrics visualization via a connected PC interface.  
-
-8. **Extensibility**  
-   - Include support for user-defined modules such as sensor integration or motor control to demonstrate real-world applications.  
+| **Feature**                 | **Description**                                                                 |
+|-----------------------------|---------------------------------------------------------------------------------|
+| **Custom Bootloader**        | Minimal bootloader to initialize hardware, load the kernel, and support secure firmware updates. |
+| **Task Scheduler**           | Preemptive, priority-based scheduler supporting real-time tasks and dynamic task management. |
+| **Memory Management**        | Simple heap allocator and memory segmentation for task isolation without MMU.  |
+| **Device Drivers**           | Drivers for UART, I2C, and SPI communication, and a virtual filesystem (e.g., FAT). |
+| **Inter-Process Communication (IPC)** | Mechanisms like message queues, semaphores, and event flags for efficient task communication. |
+| **Hardware Abstraction Layer** | Abstraction layer for portability across microcontroller families.            |
+| **Debugging and Monitoring** | Logging, task tracing, and performance metrics via a connected PC interface.    |
+| **Extensibility**            | Support for user-defined modules (e.g., sensor integration or motor control).   |
 
 ---
 
 ### **Technologies and Tools**  
 
-- **Programming Languages**:  
-  - **C**: For kernel and driver development.  
-  - **Assembly**: For bootloader and low-level hardware initialization.  
-
-- **Hardware**:  
-  - ARM Cortex-M microcontrollers (e.g., STM32, TI MSP430).  
-  - Optional: RISC-V board (e.g., SiFive HiFive).  
-
-- **Debugging and Testing**:  
-  - OpenOCD, GDB, and a JTAG/SWD debugger.  
-  - QEMU for initial kernel testing and emulation.  
-
-- **Development Environment**:  
-  - GCC ARM toolchain or Clang for cross-compilation.  
-  - Makefile or CMake for build automation.  
-
-- **Communication Protocols**:  
-  - UART for console output and debugging.  
-  - I2C/SPI for peripheral communication.  
-
-- **Optional**:  
-  - **Python**: For writing a PC-side monitoring tool to visualize kernel logs and task activity.  
-  - **Docker**: For containerizing the build environment to ensure reproducibility.  
+| **Category**            | **Tools/Technologies**                                     |
+|--------------------------|-----------------------------------------------------------|
+| **Programming Languages**| C (kernel, drivers), Assembly (bootloader, low-level initialization). |
+| **Hardware**             | ARM Cortex-M microcontrollers (e.g., STM32, TI MSP430), RISC-V (e.g., SiFive HiFive). |
+| **Debugging/Testing**    | OpenOCD, GDB, JTAG/SWD debugger, QEMU for emulation.      |
+| **Build System**         | GCC ARM toolchain, Clang, Makefile, CMake.               |
+| **Communication Protocols**| UART (console/debugging), I2C, SPI.                     |
+| **Optional Tools**       | Python (PC-side monitoring tool), Docker (build environment). |
 
 ---
 
-### **Project Scope and Challenges**  
-1. **Integration**: Combine the functionality of bare-metal drivers, RTOS schedulers, and kernel IPC.  
-2. **Efficiency**: Optimize the kernel for low memory usage (target <16 KB).  
-3. **Debugging**: Handle issues like stack overflows and synchronization bugs in real-time environments.  
-4. **Portability**: Abstract hardware-specific code to enable use across multiple microcontroller platforms.  
+### **Scope and Challenges**  
 
----
+1. **Integration**: Combine bare-metal drivers, RTOS schedulers, and kernel IPC into a cohesive system.  
+2. **Efficiency**: Optimize the kernel to achieve a memory footprint under 16 KB.  
+3. **Debugging**: Address stack overflows and synchronization issues in real-time environments.  
+4. **Portability**: Abstract hardware-specific code for cross-platform compatibility.  
 
+---  
