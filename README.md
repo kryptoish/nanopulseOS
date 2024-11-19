@@ -1,3 +1,9 @@
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="/screenshot/NanoPulseOS-Dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="/screenshot/NanoPulseOS-Light.png">
+  <img alt="HeliOS Logo" src="/screenshot/NanoPulse-OS-Logo.png">
+</picture>
+
 **NanoPulse OS: A Modular RTOS Kernel**  
 
 ---
