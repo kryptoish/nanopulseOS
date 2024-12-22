@@ -4,7 +4,7 @@
   <img alt="HeliOS Logo" src="/screenshot/NanoPulse-OS-Logo.png">
 </picture>
 
-**NanoPulse OS: A Modular RTOS Kernel**  
+**NanoPulse OS: A NANO Programmed Unique Live Scripting Environment**  
 
 ---
 
