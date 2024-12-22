@@ -9,7 +9,7 @@
 ---
 
 ### **Objective**  
-**NanoPulse OS** is a lightweight, portable, live operating system that runs directly from a USB stick. It is designed for creative users, offering tools for generative art, simple retro game creation (like Space Invaders), and an experimental IDE with a custom "brainfuck"-like programming language interpreter. NanoPulse OS is all about providing a minimal, fun, and interactive environment for exploration and creation.
+**NanoPulse OS** is a lightweight, portable, live operating system that runs directly from a USB stick. It is designed for creative users, offering tools for generative art, simple retro game creation (like Space Invaders), and an experimental IDE with a custom "brainfuck"-like programming language interpreter. NanoPulse OS is all about providing a minimal, fun, and interactive environment for exploration and creation. It leaves absolutely no trace on your computer after shutdown.
 
 ---
 
