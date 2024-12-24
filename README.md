@@ -9,7 +9,7 @@
 ---
 
 ### **Objective**  
-**NanoPulse OS** is a lightweight, portable, live operating system that runs directly from a USB stick. It is designed for creative users, offering tools for generative art, simple retro game creation (like Space Invaders), and an experimental IDE with a custom "brainfuck"-like programming language interpreter. NanoPulse OS is all about providing a minimal, fun, and interactive environment for exploration and creation. It leaves absolutely no trace on your computer after shutdown.
+**NanoPulse OS** is a lightweight, portable, live operating system that runs directly from a USB stick. It is designed for creative users, offering tools for generative art, simple retro game creation (like Space Invaders), and an experimental IDE with a custom Turing-complete esoteric programming language. NanoPulse OS is all about providing a minimal, fun, and interactive environment for exploration and creation. It leaves absolutely no trace on your computer after shutdown.
 
 ---
 
@@ -20,7 +20,7 @@
 | **Live System**              | Boots directly from a USB stick with no need for installation or hard drive modification. |
 | **Generative Art**           | Create hardware footprint-style generative art with simple, intuitive controls. |
 | **Retro Games**              | Includes built-in tools for designing and playing simple retro games like Space Invaders. |
-| **Custom IDE**               | Features a lightweight IDE for coding in a custom, minimalist programming language, inspired by Brainfuck. |
+| **Custom IDE**               | Features a lightweight IDE for coding in a custom, minimalist esoteric programming language. |
 | **Simple Scripting**         | Supports an easy-to-use scripting language for creating small programs and games. |
 | **Portable**                 | Fully functional on any computer that supports USB boot, without affecting the host system. |
 | **Minimalist Design**        | Focuses on simplicity and accessibility for both novice and advanced users. |
@@ -44,7 +44,7 @@
   
 - **Retro Games**: Access the "Games" menu to play or modify classic games like Space Invaders. You can also create new retro games with simple scripting commands.
 
-- **Custom IDE**: The built-in IDE is minimalist but powerful enough to write, test, and run small programs in a custom, brainfuck-inspired language. Open the IDE from the main menu and start coding!
+- **Custom IDE**: The built-in IDE is minimalist but powerful enough to write, test, and run small programs in a custom, esoteric language. Open the IDE from the main menu and start coding!
 
 - **Programming**: Use the custom language interpreter to run programs written in a simple, low-level syntax. **Note**: The language is intentionally a joke and not meant to be used for serious programming. It's a fun, minimalist tool to experiment with coding, but it lacks the features and capabilities of a full-fledged programming language.
 
@@ -61,9 +61,9 @@
 
 | **Category**            | **Tools/Technologies**                                     |
 |--------------------------|-----------------------------------------------------------|
-| **Programming Languages**| C (kernel and OS development), Assembly (low-level initialization), custom interpreter for brainfuck-like language. |
+| **Programming Languages**| C (kernel and OS development), Assembly (low-level initialization), custom esoteric language. |
 | **Graphics**             | Simple pixel-based graphics engine for retro games and generative art. |
-| **Build System**         | GCC, Makefile, custom tools for building and flashing the OS image. |
+| **Build System**         | GCC (compiling), Makefile, custom tools for building and flashing the OS image. |
 | **Bootloader**           | GRUB or Syslinux for booting from USB and handling the OS kernel loading. |
 | **User Interface**       | Lightweight graphical interface for art creation, game playing, and coding. |
 | **External Libraries**   | SDL2 (for graphics and input handling), custom libraries for scripting and game creation. |
@@ -74,7 +74,7 @@
 
 1. **Minimalist Design**: Creating a lean, efficient OS that can run entirely from a USB stick without needing installation or hard drive changes.
 2. **Generative Art**: Developing easy-to-use tools for users to create complex generative hardware footprint art with limited resources.
-3. **Custom Language Interpreter**: Designing and implementing a lightweight interpreter for a minimalist programming language (inspired by Brainfuck) that is fun and easy to use, but not intended for serious development.
+3. **Custom Language Interpreter**: Designing and implementing a lightweight interpreter for a minimalist esoteric programming language that is fun and easy to use, but not intended for serious development.
 4. **Retro Game Creation**: Implementing simple game mechanics and a framework for creating and playing retro-style games (e.g., Space Invaders).
 5. **Cross-Platform Compatibility**: Ensuring the OS works on a wide range of hardware with no need for installation, including supporting booting from various USB interfaces and configurations.
 
@@ -82,6 +82,7 @@
 
 ### **Future Plans**
 
+- **Custom Bootloader, Custom Programming language, Custom Compiler**: To make the whole OS unique and mine. Right now I am using GRUB, C, GCC for these purposes.
 - **Expanded Game Library**: Add more retro games and interactive challenges for users.
 - **Advanced Scripting Features**: Extend the custom language to support more complex functionality for users who want to create more advanced programs.
 - **Art Tools**: Improve and expand the generative art tools to allow for more creative control and complexity.
