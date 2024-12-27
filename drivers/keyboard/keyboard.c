@@ -34,7 +34,7 @@ static void keyboard_callback(registers_t regs) {
         kprint_backspace();
     } else if (scancode == ENTER) {
         kprint("\n");
-        user_input(key_buffer); /* kernel-controlled function */
+        user_input(key_buffer); /* kernel-controlled function */ // figure out origin
         key_buffer[0] = '\0';
     } else {
         char letter = sc_ascii[(int)scancode];
