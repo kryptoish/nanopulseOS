@@ -1,6 +1,5 @@
 # Variables
 CFLAGS ?= -O2 -g
-CC := gcc
 CPPFLAGS ?= -Iinclude
 LDFLAGS ?=
 LIBS ?=
@@ -16,9 +15,9 @@ CPPFLAGS := $(CPPFLAGS)
 
 # Source files and object files
 SRCS := \
-    src/keyboard.c \
-    src/ports.c \
-    src/screen.c
+    src/idt.c \
+    src/isr.c \
+    src/timer.c
 
 OBJS := $(SRCS:.c=.o)
 

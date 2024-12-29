@@ -1,10 +1,9 @@
 #include "../include/keyboard.h"
 #include "../include/ports.h"
-#include "../../cpu/isr.h"
+#include "../../interrupts/include/isr.h"
 #include "../include/screen.h"
 #include "../../libc/include/string.h"
 #include "../../libc/include/function.h"
-#include "../../kernel/kernel.h"
 
 #define BACKSPACE 0x0E
 #define ENTER 0x1C
@@ -23,6 +22,37 @@ const char sc_ascii[] = { '?', '?', '1', '2', '3', '4', '5', '6',
         'U', 'I', 'O', 'P', '[', ']', '?', '?', 'A', 'S', 'D', 'F', 'G', 
         'H', 'J', 'K', 'L', ';', '\'', '`', '?', '\\', 'Z', 'X', 'C', 'V', 
         'B', 'N', 'M', ',', '.', '/', '?', '?', '?', ' '};
+
+
+int strcmp(char s1[], char s2[]) {
+    int i;
+    for (i = 0; s1[i] == s2[i]; i++) {
+        if (s1[i] == '\0') return 0;
+    }
+    return s1[i] - s2[i];
+}
+
+void append(char s[], char n) {
+    int len = strlen(s);
+    s[len] = n;
+    s[len+1] = '\0';
+}
+
+void backspace(char s[]) {
+    int len = strlen(s);
+    s[len-1] = '\0';
+}
+
+
+void user_input(char *input) {
+    if (strcmp(input, "END") == 0) {
+        kprint("Stopping the CPU. Bye!\n");
+        asm volatile("hlt");
+    }
+    kprint("You said: ");
+    kprint(input);
+    kprint("\n> ");
+}
 
 static void keyboard_callback(registers_t regs) {
     /* The PIC leaves us the scancode in port 0x60 */
