@@ -9,7 +9,7 @@
 ---
 
 ### **Objective**  
-**NanoPulse OS** is a lightweight, portable, live operating system that runs directly from a USB stick. It is designed for creative users, offering tools for generative art, simple retro game creation (like Space Invaders), and an experimental IDE with a custom Turing-complete esoteric programming language. NanoPulse OS is all about providing a minimal, fun, and interactive environment for exploration and creation. It leaves absolutely no trace on your computer after shutdown.
+**NanoPulse OS** is a lightweight, portable, live operating system that runs directly from a USB stick. It is designed for creative users, offering tools for generative art, simple retro game creation (like Space Invaders), and an experimental IDE with a custom esoteric programming language. NanoPulse OS is all about providing a minimal, fun, and interactive environment for exploration and creation. It leaves absolutely no trace on your computer after shutdown.
 
 ---
 
@@ -20,8 +20,7 @@
 | **Live System**              | Boots directly from a USB stick with no need for installation or hard drive modification. |
 | **Generative Art**           | Create hardware footprint-style generative art with simple, intuitive controls. |
 | **Retro Games**              | Includes built-in tools for designing and playing simple retro games like Space Invaders. |
-| **Custom IDE**               | Features a lightweight IDE for coding in a custom, minimalist esoteric programming language. |
-| **Simple Scripting**         | Supports an easy-to-use scripting language for creating small programs and games. |
+| **Simple Scripting**         | Supports an easy-to-use esoteric scripting language for creating small programs. |
 | **Portable**                 | Fully functional on any computer that supports USB boot, without affecting the host system. |
 | **Minimalist Design**        | Focuses on simplicity and accessibility for both novice and advanced users. |
 | **Cross-Platform Compatibility** | Compatible with most x86-based systems and works on a wide range of hardware without installation. |
@@ -40,13 +39,11 @@
 
 ### **Basic Usage Instructions**
 
-- **Generative Art**: Once the OS is loaded, navigate to the "Art" section where you can create generative hardware footprint art using the built-in tools. The system allows for real-time previewing and modification.
+- **Generative Art**: Type `Art` in the shell (once loaded) which will create a generative hardware footprint art using the built-in tools (randomly).
   
-- **Retro Games**: Access the "Games" menu to play or modify classic games like Space Invaders. You can also create new retro games with simple scripting commands.
+- **Retro Games**: Type `Game` in the shell (once loaded) to play or modify classic games like Space Invaders. You can also create new retro games with simple scripting commands.
 
-- **Custom IDE**: The built-in IDE is minimalist but powerful enough to write, test, and run small programs in a custom, esoteric language. Open the IDE from the main menu and start coding!
-
-- **Programming**: Use the custom language interpreter to run programs written in a simple, low-level syntax. **Note**: The language is intentionally a joke and not meant to be used for serious programming. It's a fun, minimalist tool to experiment with coding, but it lacks the features and capabilities of a full-fledged programming language.
+- **Programming**: Use the custom language interpreter to run programs written in a simple, low-level syntax. **Note**: The language is intentionally a joke and not meant to be used for serious programming. It's a fun, minimalist tool to experiment with coding, but it lacks the features and capabilities of a full-fledged programming language. Open the IDE by typing `code` in the shell (once loaded) and start coding!
 
 ---
 
@@ -92,5 +89,5 @@
 
 ### **Contributing**
 
-If you’re interested in contributing to NanoPulse OS, feel free to fork the repository and submit pull requests. Contributions are welcome, whether it’s improving the IDE, adding more game templates, or creating new art tools!
+If you’re interested in contributing to NanoPulse OS, feel free to fork the repository and submit pull requests. Contributions are welcome, whether it’s improving my (probably) terribly written code or adding cool new features for fun!
 
