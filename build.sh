@@ -5,5 +5,3 @@ set -e
 for PROJECT in $PROJECTS; do
   (cd $PROJECT && DESTDIR="$SYSROOT" $MAKE install)
 done
-
-# test comment

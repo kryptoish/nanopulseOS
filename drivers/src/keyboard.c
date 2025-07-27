@@ -58,6 +58,9 @@ static void keyboard_callback(registers_t regs) {
     /* The PIC leaves us the scancode in port 0x60 */
     u8 scancode = port_byte_in(0x60);
     
+    // Debug: Print that we received a keyboard interrupt
+    kprint("KEYBOARD INTERRUPT! Scancode received\n");
+    
     if (scancode > SC_MAX) return;
     if (scancode == BACKSPACE) {
         backspace(key_buffer);
@@ -76,6 +79,18 @@ static void keyboard_callback(registers_t regs) {
     UNUSED(regs);
 }
 
+
+
 void init_keyboard() {
+   kprint("Initializing keyboard...\n");
+   kprint("About to register interrupt handler...\n");
    register_interrupt_handler(IRQ1, keyboard_callback); 
+   kprint("Interrupt handler registered...\n");
+   
+   // Minimal initialization - just enable keyboard
+   kprint("About to enable keyboard...\n");
+   port_byte_out(0x64, 0xAE);
+   kprint("Keyboard enabled...\n");
+   
+   kprint("Keyboard initialized!\n");
 }

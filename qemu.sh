@@ -4,6 +4,7 @@ set -e
 
 qemu-system-$(./target-triplet-to-arch.sh $HOST) -cdrom nanopulseos.iso
 
+# qemu-system-i386 -cdrom nanopulseos.iso -curses
 
 # For xlaunch:
 

@@ -17,37 +17,42 @@ CPPFLAGS := $(CPPFLAGS)
 SRCS := \
     src/idt.c \
     src/isr.c \
-    src/timer.c
+    src/timer.c \
+    src/interrupt.s
 
 OBJS := $(SRCS:.c=.o)
+OBJS := $(OBJS:.s=.o)
 
 # Output library
-LIBDRIVERS := libdrivers.a
+LIBINTERRUPTS := libinterrupts.a
 
 # Targets
 .PHONY: all clean install install-headers install-libs
 .SUFFIXES: .o .c
 
-all: $(LIBDRIVERS)
+all: $(LIBINTERRUPTS)
 
-$(LIBDRIVERS): $(OBJS)
+$(LIBINTERRUPTS): $(OBJS)
 	$(AR) rcs $@ $(OBJS)
 
 .c.o:
 	$(CC) -MD -c $< -o $@ $(CFLAGS) $(CPPFLAGS)
 
+.s.o:
+	nasm -f elf32 $< -o $@
+
 clean:
-	rm -f $(LIBDRIVERS) $(OBJS) */*.o
+	rm -f $(LIBINTERRUPTS) $(OBJS) */*.o
 	rm -f $(OBJS:.o=.d) */*.d
 
 install: install-headers install-libs
 
 install-headers:
-	mkdir -p $(DESTDIR)$(INCLUDEDIR)/drivers
-	cp -R --preserve=timestamps include/. $(DESTDIR)$(INCLUDEDIR)/drivers
+	mkdir -p $(DESTDIR)$(INCLUDEDIR)/interrupts
+	cp -R --preserve=timestamps include/. $(DESTDIR)$(INCLUDEDIR)/interrupts
 
-install-libs: $(LIBDRIVERS)
+install-libs: $(LIBINTERRUPTS)
 	mkdir -p $(DESTDIR)$(LIBDIR)
-	cp $(LIBDRIVERS) $(DESTDIR)$(LIBDIR)
+	cp $(LIBINTERRUPTS) $(DESTDIR)$(LIBDIR)
 
 -include $(OBJS:.o=.d)

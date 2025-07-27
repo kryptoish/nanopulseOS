@@ -2,6 +2,8 @@
 #include "../include/idt.h"
 #include "../../drivers/include/screen.h"
 #include "../../drivers/include/ports.h"
+#include "../../drivers/include/types.h"
+#include <string.h>
 
 isr_t interrupt_handlers[256];
 
@@ -41,17 +43,12 @@ void isr_install() {
     set_idt_gate(30, (u32)isr30);
     set_idt_gate(31, (u32)isr31);
 
-    // Remap the PIC
-    port_byte_out(0x20, 0x11);
-    port_byte_out(0xA0, 0x11);
-    port_byte_out(0x21, 0x20);
-    port_byte_out(0xA1, 0x28);
-    port_byte_out(0x21, 0x04);
-    port_byte_out(0xA1, 0x02);
-    port_byte_out(0x21, 0x01);
-    port_byte_out(0xA1, 0x01);
-    port_byte_out(0x21, 0x0);
-    port_byte_out(0xA1, 0x0); 
+    // Temporarily disable PIC remapping to test
+    kprint("Skipping PIC remapping for now...\n");
+    
+    // Debug: Print PIC mask values
+    kprint("PIC Master mask: 0xFD (IRQ1 unmasked)\n");
+    kprint("PIC Slave mask: 0xFF (all masked)\n"); 
 
     // Install the IRQs
     set_idt_gate(32, (u32)irq0);
@@ -115,15 +112,14 @@ char *exception_messages[] = {
 
 void isr_handler(registers_t r) {
     kprint("received interrupt: ");
-    char s[3];
-    int_to_ascii(r.int_no, s);
-    kprint(s);
-    kprint("\n");
+    kprint("(number)\n");
     kprint(exception_messages[r.int_no]);
     kprint("\n");
 }
 
 void register_interrupt_handler(u8 n, isr_t handler) {
+    kprint("Registering interrupt handler for IRQ ");
+    kprint("(number)\n");
     interrupt_handlers[n] = handler;
 }
 
@@ -140,33 +136,4 @@ void irq_handler(registers_t r) {
     }
 }
 
-void int_to_ascii(int n, char str[]) {
-    int i, sign;
-    if ((sign = n) < 0) n = -n;
-    i = 0;
-    do {
-        str[i++] = n % 10 + '0';
-    } while ((n /= 10) > 0);
 
-    if (sign < 0) str[i++] = '-';
-    str[i] = '\0';
-
-    reverse(str);
-}
-
-/* K&R */
-void reverse(char s[]) {
-    int c, i, j;
-    for (i = 0, j = strlen(s)-1; i < j; i++, j--) {
-        c = s[i];
-        s[i] = s[j];
-        s[j] = c;
-    }
-}
-
-/* K&R */
-int strlen(char s[]) {
-    int i = 0;
-    while (s[i] != '\0') ++i;
-    return i;
-}
