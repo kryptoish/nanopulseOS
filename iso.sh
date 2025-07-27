@@ -13,3 +13,8 @@ menuentry "nanopulseos" {
 }
 EOF
 grub-mkrescue -o nanopulseos.iso isodir
+
+# Before running this file to build run the following prep:
+# export PREFIX="$HOME/opt/cross"
+# export TARGET=i686-elf
+# export PATH="$PREFIX/bin:$PATH"

@@ -1,9 +1,10 @@
 # Variables
 CFLAGS ?= -O2 -g
-CC := gcc
+CC ?= gcc
 CPPFLAGS ?= -Iinclude
 LDFLAGS ?=
 LIBS ?=
+RANLIB ?= $(HOST)-ranlib
 
 DESTDIR ?=
 PREFIX ?=/usr/local
@@ -12,7 +13,7 @@ INCLUDEDIR ?=$(PREFIX)/include
 LIBDIR ?=$(EXEC_PREFIX)/lib
 
 CFLAGS := $(CFLAGS) -ffreestanding -Wall -Wextra
-CPPFLAGS := $(CPPFLAGS)
+CPPFLAGS := $(CPPFLAGS) --sysroot=$(SYSROOT)
 
 # Source files and object files
 SRCS := \
@@ -33,6 +34,7 @@ all: $(LIBDRIVERS)
 
 $(LIBDRIVERS): $(OBJS)
 	$(AR) rcs $@ $(OBJS)
+	$(RANLIB) $@
 
 .c.o:
 	$(CC) -MD -c $< -o $@ $(CFLAGS) $(CPPFLAGS)

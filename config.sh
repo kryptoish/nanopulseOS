@@ -1,5 +1,5 @@
-SYSTEM_HEADER_PROJECTS="libc kernel drivers"
-PROJECTS="libc kernel drivers"
+SYSTEM_HEADER_PROJECTS="libc drivers kernel"
+PROJECTS="libc drivers kernel"
 
 export MAKE=${MAKE:-make}
 export HOST=${HOST:-$(./default-host.sh)}
