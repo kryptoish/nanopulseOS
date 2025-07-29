@@ -7,9 +7,23 @@
 
 isr_t interrupt_handlers[256];
 
+// Simple test interrupt handler that does absolutely nothing
+static void test_interrupt_handler(registers_t regs) {
+    // Do absolutely nothing - just return immediately
+    // Don't even cast the parameter
+}
+
 /* Can't do this with a loop because we need the address
  * of the function names */
 void isr_install() {
+    // Initialize all interrupt handlers to NULL
+    for (int i = 0; i < 256; i++) {
+        interrupt_handlers[i] = 0;
+    }
+    
+    // Register a test handler for IRQ1 instead of the keyboard handler
+    interrupt_handlers[33] = test_interrupt_handler;  // IRQ1 = interrupt 33
+    
     set_idt_gate(0, (u32)isr0);
     set_idt_gate(1, (u32)isr1);
     set_idt_gate(2, (u32)isr2);
@@ -43,12 +57,30 @@ void isr_install() {
     set_idt_gate(30, (u32)isr30);
     set_idt_gate(31, (u32)isr31);
 
-    // Temporarily disable PIC remapping to test
-    kprint("Skipping PIC remapping for now...\n");
+    // Remap the PIC to avoid conflicts with CPU exceptions
+    kprint("Remapping PIC...\n");
     
-    // Debug: Print PIC mask values
-    kprint("PIC Master mask: 0xFD (IRQ1 unmasked)\n");
-    kprint("PIC Slave mask: 0xFF (all masked)\n"); 
+    // ICW1: start initialization sequence
+    port_byte_out(0x20, 0x11);
+    port_byte_out(0xA0, 0x11);
+    
+    // ICW2: remap IRQ table
+    port_byte_out(0x21, 0x20);  // Master PIC: IRQ 0-7 -> interrupts 32-39
+    port_byte_out(0xA1, 0x28);  // Slave PIC: IRQ 8-15 -> interrupts 40-47
+    
+    // ICW3: tell PICs how they're cascaded
+    port_byte_out(0x21, 0x04);
+    port_byte_out(0xA1, 0x02);
+    
+    // ICW4: set 8086 mode
+    port_byte_out(0x21, 0x01);
+    port_byte_out(0xA1, 0x01);
+    
+    // Set interrupt masks (only enable keyboard IRQ1)
+    port_byte_out(0x21, 0xFD);  // Master PIC: enable IRQ1 (keyboard), disable others
+    port_byte_out(0xA1, 0xFF);  // Slave PIC: disable all
+    
+    kprint("PIC remapping complete\n");
 
     // Install the IRQs
     set_idt_gate(32, (u32)irq0);
@@ -69,6 +101,8 @@ void isr_install() {
     set_idt_gate(47, (u32)irq15);
 
     set_idt(); // Load with ASM
+    
+    kprint("ISR installation complete\n");
 }
 
 /* To print the message which defines every exception */
@@ -118,8 +152,6 @@ void isr_handler(registers_t r) {
 }
 
 void register_interrupt_handler(u8 n, isr_t handler) {
-    kprint("Registering interrupt handler for IRQ ");
-    kprint("(number)\n");
     interrupt_handlers[n] = handler;
 }
 

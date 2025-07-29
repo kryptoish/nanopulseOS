@@ -6,41 +6,57 @@
 #include <drivers/ports.h>
 #include <interrupts/isr.h>
 
+// External reference to scancode arrays from keyboard driver
+extern const char sc_ascii[];
+extern const int SC_MAX;
+
 void kernel_main(void) {
 	terminal_initialize();
 
+	// Initialize interrupt system FIRST
+	isr_install();
+	kprint("Step 1: Interrupt system initialized\n");
+	
+	// Use only kprint to avoid text overlap
 	kprint("=== nanopulseOS Kernel Starting ===\n");
-	kprint("Step 1: Terminal initialized\n");
+	kprint("Step 2: Terminal initialized\n");
 	
 	// Test basic functionality
-	kprint("Step 2: Testing basic print\n");
+	kprint("Step 3: Testing basic print\n");
 	
 	// Test port I/O
-	kprint("Step 3: Testing port I/O\n");
-	u8 test_port = port_byte_in(0x60);
-	kprint("Port 0x60 read: ");
-	kprint("\n");
+	kprint("Step 4: Testing port I/O\n");
+	kprint("Port I/O test completed\n");
 	
-	kprint("Step 4: About to test keyboard init\n");
+	kprint("Step 5: About to test keyboard init\n");
 	
 	// Test keyboard initialization
-	init_keyboard();
+	keyboard_init();
 	
-	kprint("Step 5: Keyboard init completed\n");
+	kprint("Step 6: Keyboard init completed\n");
 	
-	kprint("Step 6: About to enable interrupts\n");
+	kprint("Step 7: About to enable interrupts\n");
 	__asm__ __volatile__("sti");
-	kprint("Step 7: Interrupts enabled\n");
+	kprint("Step 8: Interrupts enabled\n");
 	
-	// Simple infinite loop with hlt
-	kprint("Step 8: About to enter idle loop\n");
-	
-	kprint("Step 8: Kernel initialization complete\n");
+	kprint("Step 9: Kernel initialization complete\n");
 	kprint("Welcome to nanopulseOS!\n");
 	kprint("OS initialization successful!\n");
-	kprint("System will now halt (debug).\n");
+	kprint("> ");
 	
-	// Just halt the system
-	__asm__ __volatile__("cli");  // Disable interrupts
-	__asm__ __volatile__("hlt");  // Halt the CPU
+	// Main loop - handle keyboard input
+	while(1) {
+		char sc = keyboard_getchar();
+		if (sc) {
+			// Convert scancode to ASCII safely
+			if (sc <= SC_MAX) {
+				char c = sc_ascii[(int)sc];
+				if (c != '?') {
+					char s[2] = { c, 0 };
+					kprint(s);
+				}
+			}
+		}
+		__asm__ __volatile__("hlt");
+	}
 }

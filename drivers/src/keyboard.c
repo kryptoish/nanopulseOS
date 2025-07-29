@@ -10,7 +10,7 @@
 
 static char key_buffer[256];
 
-#define SC_MAX 57
+const int SC_MAX = 57;
 const char *sc_name[] = { "ERROR", "Esc", "1", "2", "3", "4", "5", "6", 
     "7", "8", "9", "0", "-", "=", "Backspace", "Tab", "Q", "W", "E", 
         "R", "T", "Y", "U", "I", "O", "P", "[", "]", "Enter", "Lctrl", 
@@ -45,52 +45,50 @@ void backspace(char s[]) {
 
 
 void user_input(char *input) {
-    if (strcmp(input, "END") == 0) {
-        kprint("Stopping the CPU. Bye!\n");
-        asm volatile("hlt");
-    }
     kprint("You said: ");
     kprint(input);
     kprint("\n> ");
 }
 
-static void keyboard_callback(registers_t regs) {
-    /* The PIC leaves us the scancode in port 0x60 */
-    u8 scancode = port_byte_in(0x60);
-    
-    // Debug: Print that we received a keyboard interrupt
-    kprint("KEYBOARD INTERRUPT! Scancode received\n");
-    
-    if (scancode > SC_MAX) return;
-    if (scancode == BACKSPACE) {
-        backspace(key_buffer);
-        kprint_backspace();
-    } else if (scancode == ENTER) {
-        kprint("\n");
-        user_input(key_buffer); /* kernel-controlled function */ // figure out origin
-        key_buffer[0] = '\0';
-    } else {
-        char letter = sc_ascii[(int)scancode];
-        /* Remember that kprint only accepts char[] */
-        char str[2] = {letter, '\0'};
-        append(key_buffer, letter);
-        kprint(str);
+// Global flag to indicate keyboard interrupt received
+volatile int keyboard_interrupt_received = 0;
+
+// Function to check and reset the keyboard interrupt flag
+int check_keyboard_interrupt() {
+    if (keyboard_interrupt_received) {
+        keyboard_interrupt_received = 0;
+        return 1;
     }
-    UNUSED(regs);
+    return 0;
 }
 
+static volatile char key_queue = 0;   // 1-byte FIFO for demo
 
+static void keyboard_callback(registers_t regs)
+{
+    // Do absolutely nothing - just acknowledge the interrupt
+    // Don't even read the scancode for now
+    (void)regs;  // Suppress unused parameter warning
+}
 
-void init_keyboard() {
-   kprint("Initializing keyboard...\n");
-   kprint("About to register interrupt handler...\n");
-   register_interrupt_handler(IRQ1, keyboard_callback); 
-   kprint("Interrupt handler registered...\n");
-   
-   // Minimal initialization - just enable keyboard
-   kprint("About to enable keyboard...\n");
-   port_byte_out(0x64, 0xAE);
-   kprint("Keyboard enabled...\n");
-   
-   kprint("Keyboard initialized!\n");
+char keyboard_getchar(void)
+{
+    char c = key_queue;
+    key_queue = 0;
+    return c;
+}
+
+void keyboard_init(void)
+{
+    kprint("Initializing keyboard...\n");
+    
+    // Temporarily disable keyboard handler registration
+    // register_interrupt_handler(IRQ1, keyboard_callback);
+    kprint("Interrupt handler registration disabled for testing\n");
+    
+    // Minimal keyboard enable - just send the enable command
+    kprint("Enabling keyboard...\n");
+    port_byte_out(0x64, 0xAE);  // Enable keyboard
+    
+    kprint("Keyboard initialized!\n");
 }

@@ -18,3 +18,6 @@ grub-mkrescue -o nanopulseos.iso isodir
 # export PREFIX="$HOME/opt/cross"
 # export TARGET=i686-elf
 # export PATH="$PREFIX/bin:$PATH"
+
+# For display:
+# export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0

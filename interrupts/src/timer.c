@@ -9,13 +9,15 @@ u32 tick = 0;
 
 static void timer_callback(registers_t regs) {
     tick++;
-    if (tick % 50 == 0) {  // Every 50 ticks (1 second at 50Hz)
-        kprint("Timer tick: ");
-        char tick_ascii[256];
-        int_to_ascii(tick, tick_ascii);
-        kprint(tick_ascii);
-        kprint("\n");
-    }
+    // Temporarily disable timer output to avoid conflicts with keyboard
+    // if (tick % 50 == 0) {  // Every 50 ticks (1 second at 50Hz)
+    //     kprint("Timer tick: ");
+    //     char tick_ascii[256];
+    //     int_to_ascii(tick, tick_ascii);
+    //     kprint(tick_ascii);
+    //     kprint("\n");
+    // }
+    (void)regs;  // Suppress unused parameter warning
 }
 
 void init_timer(u32 freq) {

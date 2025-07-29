@@ -2,7 +2,7 @@
 set -e
 . ./iso.sh
 
-qemu-system-$(./target-triplet-to-arch.sh $HOST) -cdrom nanopulseos.iso
+qemu-system-$(./target-triplet-to-arch.sh $HOST) -cdrom nanopulseos.iso -no-reboot -d int
 
 # qemu-system-i386 -cdrom nanopulseos.iso -curses
 
