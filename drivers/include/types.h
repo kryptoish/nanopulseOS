@@ -3,6 +3,8 @@
 
 /* Instead of using 'chars' to allocate non-character bytes,
  * we will use these new type with no semantic meaning */
+typedef unsigned long long u64;
+typedef          long long s64;
 typedef unsigned int   u32;
 typedef          int   s32;
 typedef unsigned short u16;

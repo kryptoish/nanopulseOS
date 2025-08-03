@@ -48,7 +48,7 @@ irq_common_stub:
     popa
     add esp, 8
     sti
-    iret 
+    iret
 	
 ; We don't get information about which interrupt was caller
 ; when the handler is run, so we will need to have a different handler

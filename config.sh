@@ -1,3 +1,7 @@
+export PREFIX="$HOME/opt/cross"
+export TARGET=i686-elf
+export PATH="$PREFIX/bin:$PATH"
+
 SYSTEM_HEADER_PROJECTS="libc drivers interrupts kernel"
 PROJECTS="libc drivers interrupts kernel"
 

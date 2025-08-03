@@ -66,9 +66,15 @@ static volatile char key_queue = 0;   // 1-byte FIFO for demo
 
 static void keyboard_callback(registers_t regs)
 {
-    // Do absolutely nothing - just acknowledge the interrupt
-    // Don't even read the scancode for now
-    (void)regs;  // Suppress unused parameter warning
+    // Read the scancode from port 0x60
+    u8 scancode = port_byte_in(0x60);
+    
+    // Send EOI to PIC
+    port_byte_out(0x20, 0x20);
+    
+    // Store the scancode for processing
+    key_queue = scancode;
+    keyboard_interrupt_received = 1;
 }
 
 char keyboard_getchar(void)
@@ -82,11 +88,7 @@ void keyboard_init(void)
 {
     kprint("Initializing keyboard...\n");
     
-    // Temporarily disable keyboard handler registration
-    // register_interrupt_handler(IRQ1, keyboard_callback);
-    kprint("Interrupt handler registration disabled for testing\n");
-    
-    // Minimal keyboard enable - just send the enable command
+    // Enable keyboard interrupts
     kprint("Enabling keyboard...\n");
     port_byte_out(0x64, 0xAE);  // Enable keyboard
     

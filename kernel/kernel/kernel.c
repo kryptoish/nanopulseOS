@@ -44,19 +44,8 @@ void kernel_main(void) {
 	kprint("OS initialization successful!\n");
 	kprint("> ");
 	
-	// Main loop - handle keyboard input
+	// Simple main loop - just halt and wait for interrupts
 	while(1) {
-		char sc = keyboard_getchar();
-		if (sc) {
-			// Convert scancode to ASCII safely
-			if (sc <= SC_MAX) {
-				char c = sc_ascii[(int)sc];
-				if (c != '?') {
-					char s[2] = { c, 0 };
-					kprint(s);
-				}
-			}
-		}
 		__asm__ __volatile__("hlt");
 	}
 }

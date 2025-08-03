@@ -5,12 +5,34 @@
 #include "../../drivers/include/types.h"
 #include <string.h>
 
+// External reference to scancode arrays from keyboard driver
+extern const char sc_ascii[];
+extern const int SC_MAX;
+
 isr_t interrupt_handlers[256];
 
-// Simple test interrupt handler that does absolutely nothing
-static void test_interrupt_handler(registers_t regs) {
-    // Do absolutely nothing - just return immediately
-    // Don't even cast the parameter
+// Forward declarations
+static void exception_handler(registers_t regs);
+
+// Keyboard interrupt handler - debug print scancode and ascii
+static void keyboard_interrupt_handler(registers_t regs) {
+    (void)regs; // unused
+
+    u8 scancode = port_byte_in(0x60);   // read scancode to reset controller
+    port_byte_out(0x20, 0x20);          // send EOI to PIC
+
+    /* Build small debug string: [HH ] */
+    const char hexmap[] = "0123456789ABCDEF";
+    char msg[6] = { '[', hexmap[(scancode >> 4) & 0xF], hexmap[scancode & 0xF], ']', ' ', 0 };
+    kprint(msg);                        // always show scancode
+
+    if (scancode < 0x80 && scancode <= SC_MAX) {
+        char c = sc_ascii[scancode];
+        if (c != '?') {
+            char s[2] = { c, 0 };
+            kprint(s);
+        }
+    }
 }
 
 /* Can't do this with a loop because we need the address
@@ -21,8 +43,26 @@ void isr_install() {
         interrupt_handlers[i] = 0;
     }
     
-    // Register a test handler for IRQ1 instead of the keyboard handler
-    interrupt_handlers[33] = test_interrupt_handler;  // IRQ1 = interrupt 33
+    // Set up GDT first
+    kprint("Setting up GDT...\n");
+    set_gdt_entry(0, 0, 0, 0, 0);                // Null segment
+    set_gdt_entry(1, 0, 0xFFFFFFFF, 0x9A, 0xCF); // Code segment (32-bit)
+    set_gdt_entry(2, 0, 0xFFFFFFFF, 0x92, 0xCF); // Data segment
+    set_gdt_entry(3, 0, 0xFFFFFFFF, 0xFA, 0xCF); // User code segment
+    set_gdt_entry(4, 0, 0xFFFFFFFF, 0xF2, 0xCF); // User data segment
+    
+    // Set up TSS for proper stack switching
+    write_tss(5, KERNEL_DS, 0x10FF0);  // Kernel stack at 0x10FF0
+    set_gdt();
+    kprint("GDT and TSS setup complete\n");
+    
+    // Register exception handlers
+    for (int i = 0; i < 32; i++) {
+        interrupt_handlers[i] = exception_handler;
+    }
+    
+    // Register keyboard handler
+    interrupt_handlers[33] = keyboard_interrupt_handler;  // IRQ1 = interrupt 33
     
     set_idt_gate(0, (u32)isr0);
     set_idt_gate(1, (u32)isr1);
@@ -77,7 +117,7 @@ void isr_install() {
     port_byte_out(0xA1, 0x01);
     
     // Set interrupt masks (only enable keyboard IRQ1)
-    port_byte_out(0x21, 0xFD);  // Master PIC: enable IRQ1 (keyboard), disable others
+    port_byte_out(0x21, 0xFD);  // Enable only IRQ1 (keyboard)
     port_byte_out(0xA1, 0xFF);  // Slave PIC: disable all
     
     kprint("PIC remapping complete\n");
@@ -144,11 +184,32 @@ char *exception_messages[] = {
     "Reserved"
 };
 
-void isr_handler(registers_t r) {
-    kprint("received interrupt: ");
-    kprint("(number)\n");
-    kprint(exception_messages[r.int_no]);
+// Basic exception handler
+static void exception_handler(registers_t regs) {
+    kprint("Exception received: ");
+    if (regs.int_no < 32) {
+        kprint(exception_messages[regs.int_no]);
+    } else {
+        kprint("Unknown exception");
+    }
     kprint("\n");
+    
+    // For now, just halt the system on exception
+    __asm__ __volatile__("cli");
+    __asm__ __volatile__("hlt");
+}
+
+void isr_handler(registers_t r) {
+    // Only handle CPU exceptions (0-31), not IRQs
+    if (r.int_no < 32) {
+        kprint("CPU Exception received: ");
+        kprint(exception_messages[r.int_no]);
+        kprint("\n");
+        
+        // For now, just halt the system on exception
+        __asm__ __volatile__("cli");
+        __asm__ __volatile__("hlt");
+    }
 }
 
 void register_interrupt_handler(u8 n, isr_t handler) {
