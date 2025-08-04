@@ -1,4 +1,7 @@
 #include <stdio.h>
+#include <string.h>
+
+static void reverse(char s[]);
 
 void int_to_ascii(int n, char str[]) {
     int i, sign;

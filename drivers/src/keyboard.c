@@ -2,13 +2,13 @@
 #include "../include/ports.h"
 #include "../../interrupts/include/isr.h"
 #include "../include/screen.h"
-#include "../../libc/include/string.h"
-#include "../../libc/include/function.h"
+#include <string.h>
+#include <stddef.h>
 
 #define BACKSPACE 0x0E
 #define ENTER 0x1C
 
-static char key_buffer[256];
+static char key_buffer[256] __attribute__((unused));
 
 const int SC_MAX = 57;
 const char *sc_name[] = { "ERROR", "Esc", "1", "2", "3", "4", "5", "6", 
@@ -64,13 +64,32 @@ int check_keyboard_interrupt() {
 
 static volatile char key_queue = 0;   // 1-byte FIFO for demo
 
-static void keyboard_callback(registers_t regs)
+static void keyboard_callback(registers_t regs __attribute__((unused)))
 {
     // Read the scancode from port 0x60
     u8 scancode = port_byte_in(0x60);
     
     // Send EOI to PIC
     port_byte_out(0x20, 0x20);
+
+    // Only process key press (not key release - scancodes > 0x80 are releases)
+    if (scancode <= 0x80) {
+        // Convert scancode to ASCII character
+        if (scancode < SC_MAX && sc_ascii[scancode] != '?') {
+            char c = sc_ascii[scancode];
+            
+            // Handle special keys
+            if (scancode == BACKSPACE) {
+                kprint_backspace();
+            } else if (scancode == ENTER) {
+                kprint("\n> ");
+            } else {
+                // Print the character
+                char str[2] = {c, '\0'};
+                kprint(str);
+            }
+        }
+    }
     
     // Store the scancode for processing
     key_queue = scancode;
@@ -87,6 +106,9 @@ char keyboard_getchar(void)
 void keyboard_init(void)
 {
     kprint("Initializing keyboard...\n");
+    
+    // Register the keyboard interrupt handler
+    register_interrupt_handler(IRQ1, keyboard_callback);
     
     // Enable keyboard interrupts
     kprint("Enabling keyboard...\n");

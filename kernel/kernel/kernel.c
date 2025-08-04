@@ -44,8 +44,13 @@ void kernel_main(void) {
 	kprint("OS initialization successful!\n");
 	kprint("> ");
 	
-	// Simple main loop - just halt and wait for interrupts
+	// Main loop - handle keyboard input
 	while(1) {
+        // Check for keyboard input
+		if (check_keyboard_interrupt()) {
+			// Keyboard input is handled in the interrupt callback
+			// This just ensures we process any pending input
+		}
 		__asm__ __volatile__("hlt");
 	}
 }
