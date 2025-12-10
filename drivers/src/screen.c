@@ -2,14 +2,6 @@
 #include "../include/ports.h"
 #include <string.h>
 
-/* Declaration of private functions */
-int get_cursor_offset();
-void set_cursor_offset(int offset);
-int print_char(char c, int col, int row, char attr);
-int get_offset(int col, int row);
-int get_offset_row(int offset);
-int get_offset_col(int offset);
-
 /**********************************************************
  * Public Kernel API functions                            *
  **********************************************************/

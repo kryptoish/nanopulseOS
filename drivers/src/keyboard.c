@@ -1,7 +1,8 @@
 #include "../include/keyboard.h"
 #include "../include/ports.h"
 #include "../../interrupts/include/isr.h"
-#include "../include/screen.h"
+#include <drivers/screen.h>
+#include "../../kernel/include/kernel/shell.h"
 #include <string.h>
 #include <stddef.h>
 
@@ -9,7 +10,7 @@
 #define ENTER 0x1C
 #define SPACEBAR 0x39
 
-static char key_buffer[256] __attribute__((unused));
+char key_buffer[256];
 
 const int SC_MAX = 58;
 const char *sc_name[] = { "ERROR", "Esc", "1", "2", "3", "4", "5", "6", 
@@ -24,14 +25,6 @@ const char sc_ascii[] = { '?', '?', '1', '2', '3', '4', '5', '6',
         'H', 'J', 'K', 'L', ';', '\'', '`', '?', '\\', 'Z', 'X', 'C', 'V', 
         'B', 'N', 'M', ',', '.', '/', '?', '?', '?', ' '};
 
-
-int strcmp(char s1[], char s2[]) {
-    int i;
-    for (i = 0; s1[i] == s2[i]; i++) {
-        if (s1[i] == '\0') return 0;
-    }
-    return s1[i] - s2[i];
-}
 
 void append(char s[], char n) {
     int len = strlen(s);
@@ -76,20 +69,27 @@ static void keyboard_callback(registers_t regs __attribute__((unused)))
     // Only process key press (not key release - scancodes > 0x80 are releases)
     if (scancode <= 0x80) {
         // Convert scancode to ASCII character
-        if (scancode < SC_MAX) {
+        if (scancode <= SC_MAX) {
             char c = sc_ascii[scancode];
+            int offset = get_cursor_offset()-2;
+            int col = get_offset_col(offset);
             
             // Handle special keys
             if (scancode == BACKSPACE) {
                 kprint_backspace();
             } else if (scancode == ENTER) {
+                key_buffer[col] = '\0';
+                shell_execute_command(key_buffer);
                 kprint("\n> ");
             } else if (scancode == SPACEBAR) {
                 kprint(" ");
+                key_buffer[col - 1] = c;
             } else {
                 // Print the character
                 char str[2] = {c, '\0'};
                 kprint(str);
+                // Store in bufffer
+                key_buffer[col - 1] = c; // make a check to make sure it doesnt go over 256
             }
         }
     }
