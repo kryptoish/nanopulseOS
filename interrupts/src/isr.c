@@ -44,7 +44,6 @@ void isr_install() {
     }
     
     // Set up GDT first
-    kprint("Setting up GDT...\n");
     set_gdt_entry(0, 0, 0, 0, 0);                // Null segment
     set_gdt_entry(1, 0, 0xFFFFFFFF, 0x9A, 0xCF); // Code segment (32-bit)
     set_gdt_entry(2, 0, 0xFFFFFFFF, 0x92, 0xCF); // Data segment
@@ -54,7 +53,6 @@ void isr_install() {
     // Set up TSS for proper stack switching
     write_tss(5, KERNEL_DS, 0x10FF0);  // Kernel stack at 0x10FF0
     set_gdt();
-    kprint("GDT and TSS setup complete\n");
     
     // Register exception handlers
     for (int i = 0; i < 32; i++) {
@@ -96,9 +94,6 @@ void isr_install() {
     set_idt_gate(29, (u32)isr29);
     set_idt_gate(30, (u32)isr30);
     set_idt_gate(31, (u32)isr31);
-
-    // Remap the PIC to avoid conflicts with CPU exceptions
-    kprint("Remapping PIC...\n");
     
     // ICW1: start initialization sequence
     port_byte_out(0x20, 0x11);
@@ -120,8 +115,6 @@ void isr_install() {
     port_byte_out(0x21, 0xFD);  // Enable only IRQ1 (keyboard)
     port_byte_out(0xA1, 0xFF);  // Slave PIC: disable all
     
-    kprint("PIC remapping complete\n");
-
     // Install the IRQs
     set_idt_gate(32, (u32)irq0);
     set_idt_gate(33, (u32)irq1);
@@ -141,8 +134,6 @@ void isr_install() {
     set_idt_gate(47, (u32)irq15);
 
     set_idt(); // Load with ASM
-    
-    kprint("ISR installation complete\n");
 }
 
 /* To print the message which defines every exception */

@@ -47,7 +47,9 @@ void kprint_backspace() {
     int offset = get_cursor_offset()-2;
     int row = get_offset_row(offset);
     int col = get_offset_col(offset);
-    print_char(0x08, col, row, WHITE_ON_BLACK);
+    if (col > 1) {
+        print_char(0x08, col, row, WHITE_ON_BLACK);
+    }
 }
 
 
@@ -95,8 +97,8 @@ int print_char(char c, int col, int row, char attr) {
     if (offset >= MAX_ROWS * MAX_COLS * 2) {
         int i;
         for (i = 1; i < MAX_ROWS; i++) 
-            memcpy((u8*)(get_offset(0, i) + VIDEO_ADDRESS),
-                        (u8*)(get_offset(0, i-1) + VIDEO_ADDRESS),
+            memcpy((u8*)(get_offset(0, i-1) + VIDEO_ADDRESS),
+                        (u8*)(get_offset(0, i) + VIDEO_ADDRESS),
                         MAX_COLS * 2);
 
         /* Blank last line */

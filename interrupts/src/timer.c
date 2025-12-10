@@ -9,7 +9,6 @@ u32 tick = 0;
 
 static void timer_callback(registers_t regs) {
     tick++;
-    // Temporarily disable timer output to avoid conflicts with keyboard
     // if (tick % 50 == 0) {  // Every 50 ticks (1 second at 50Hz)
     //     kprint("Timer tick: ");
     //     char tick_ascii[256];
