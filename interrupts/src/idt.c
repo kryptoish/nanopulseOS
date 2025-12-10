@@ -31,12 +31,12 @@ void write_tss(int num, u16 ss0, u32 esp0) {
 
     tss.ss0  = ss0;  // Set the kernel stack segment.
     tss.esp0 = esp0; // Set the kernel stack pointer.
-    tss.cs   = 0x0b;     
-    tss.ss   = 0x13;
-    tss.ds   = 0x13;
-    tss.es   = 0x13;
-    tss.fs   = 0x13;
-    tss.gs   = 0x13;
+    tss.cs   = KERNEL_CS;     
+    tss.ss   = KERNEL_DS;
+    tss.ds   = KERNEL_DS;
+    tss.es   = KERNEL_DS;
+    tss.fs   = KERNEL_DS;
+    tss.gs   = KERNEL_DS;
 }
 
 void set_kernel_stack(u32 stack) {
@@ -47,8 +47,21 @@ void set_gdt() {
     gdt_reg.base = (u32) &gdt;
     gdt_reg.limit = (sizeof(gdt_entry_t) * 7) - 1;
     __asm__ __volatile__("lgdt (%0)" : : "r" (&gdt_reg));
-    
-    // Load the TSS
+
+    // Reload all segment selectors so they point into the new GDT
+   __asm__ __volatile__(
+       "mov %0, %%ax\n"
+       "mov %%ax, %%ds\n"
+       "mov %%ax, %%es\n"
+       "mov %%ax, %%fs\n"
+       "mov %%ax, %%gs\n"
+       "mov %%ax, %%ss\n"
+       "ljmp %1, $1f\n"
+       "1:\n"
+       :
+       : "r" ((u16)KERNEL_DS), "i" (KERNEL_CS)
+       : "ax", "memory");
+   // Load the TSS now that the segments are active
     __asm__ __volatile__("ltr %%ax" : : "a" (TSS_SEG));
 }
 

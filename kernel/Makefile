@@ -31,6 +31,11 @@ KERNEL_OBJS=\
 $(KERNEL_ARCH_OBJS) \
 kernel/kernel.o \
 
+LIB_DEPS=\
+	../drivers/libdrivers.a \
+	../interrupts/libinterrupts.a \
+	../libc/libk.a \
+
 OBJS=\
 $(ARCHDIR)/crti.o \
 $(ARCHDIR)/crtbegin.o \
@@ -52,7 +57,7 @@ $(ARCHDIR)/crtn.o \
 
 all: nanopulseos.kernel
 
-nanopulseos.kernel: $(OBJS) $(ARCHDIR)/linker.ld
+nanopulseos.kernel: $(OBJS) $(ARCHDIR)/linker.ld $(LIB_DEPS)
 	$(CC) -T $(ARCHDIR)/linker.ld -o $@ $(CFLAGS) $(LINK_LIST)
 	grub-file --is-x86-multiboot nanopulseos.kernel
 
