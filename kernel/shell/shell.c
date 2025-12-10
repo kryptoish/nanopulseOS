@@ -18,6 +18,6 @@ void shell_execute_command(char *input) {
         kprint(input);
     }
     for (int i = 0; i < 256; i++) {
-        input[i] = NULL;
+        input[i] = '\0';
     }
 }
