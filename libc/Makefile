@@ -41,6 +41,7 @@ string/memset.o \
 string/strlen.o \
 string/strcmp.o \
 string/strncmp.o \
+string/strcasecmp.o \
 
 HOSTEDOBJS=\
 $(ARCH_HOSTEDOBJS) \

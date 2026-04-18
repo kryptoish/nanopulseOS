@@ -16,6 +16,8 @@ void* memset(void*, int, size_t);
 size_t strlen(const char*);
 int strcmp(char s1[], char s2[]);
 int strncmp(char s1[], char s2[], int n);
+int strcasecmp(const char *s1, const char *s2);
+int strncasecmp(const char *s1, const char *s2, size_t n);
 
 #ifdef __cplusplus
 }

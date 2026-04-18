@@ -91,3 +91,20 @@
 
 If you’re interested in contributing to NanoPulse OS, feel free to fork the repository and submit pull requests. Contributions are welcome, whether it’s improving my (probably) terribly written code or adding cool new features for fun!
 
+---
+
+Personal note for next steps in work: 
+
+Initrd loaded by GRUB             
+                                                                         
+  GRUB loads a file (tar, cpio, or custom format) as a multiboot module. 
+  Kernel parses it into a read-only FS. Perfect for shipping default     
+  programs/art/games with the OS.                                        
+  - Modify isodir/boot/grub/grub.cfg to add module /boot/initrd.tar    
+  - Read multiboot info struct to find the module                        
+  - Tar parser (~100 lines) walks headers        
+  - Read-only open/read path                                             
+  - You'd likely combine this with A for writable scratch space  
+
+Graphics games with timer cmd integrated next
+

@@ -31,6 +31,8 @@ KERNEL_OBJS=\
 $(KERNEL_ARCH_OBJS) \
 kernel/kernel.o \
 shell/shell.o \
+art/art.o \
+fs/ramfs.o \
 
 LIB_DEPS=\
 	../drivers/libdrivers.a \

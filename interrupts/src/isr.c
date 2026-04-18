@@ -111,8 +111,8 @@ void isr_install() {
     port_byte_out(0x21, 0x01);
     port_byte_out(0xA1, 0x01);
     
-    // Set interrupt masks (only enable keyboard IRQ1)
-    port_byte_out(0x21, 0xFD);  // Enable only IRQ1 (keyboard)
+    // Set interrupt masks: enable IRQ0 (timer) and IRQ1 (keyboard).
+    port_byte_out(0x21, 0xFC);  // 1111_1100 -> unmask IRQ0 and IRQ1
     port_byte_out(0xA1, 0xFF);  // Slave PIC: disable all
     
     // Install the IRQs

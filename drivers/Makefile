@@ -19,7 +19,8 @@ CPPFLAGS := $(CPPFLAGS) --sysroot=$(SYSROOT)
 SRCS := \
     src/keyboard.c \
     src/ports.c \
-    src/screen.c
+    src/screen.c \
+    src/vga.c
 
 OBJS := $(SRCS:.c=.o)
 
