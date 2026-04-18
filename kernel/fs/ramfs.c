@@ -31,7 +31,6 @@
 #define RAMFS_END          0xFFFFFFFFU
 #define RAMFS_SLOT_FREE    0xFFFFFFFFU
 
-/* Compile-time sanity: dirent must pack cleanly into a block. */
 typedef struct {
     char name[RAMFS_MAX_NAME];   /* 28 bytes, always null-terminated */
     u32  inode;                   /* 4  — RAMFS_SLOT_FREE marks a hole */
