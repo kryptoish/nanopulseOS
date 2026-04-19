@@ -2,9 +2,7 @@
 #include "../include/ports.h"
 #include <string.h>
 
-/**********************************************************
- * Public Kernel API functions                            *
- **********************************************************/
+// PUBLIC
 
 /**
  * Print a message on the specified location
@@ -44,11 +42,7 @@ void kprint_backspace() {
     }
 }
 
-
-/**********************************************************
- * Private kernel functions                               *
- **********************************************************/
-
+// PRIVATE
 
 /**
  * Innermost print function for our kernel, directly accesses the video memory 

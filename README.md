@@ -9,7 +9,7 @@
 ---
 
 ### **Objective**  
-**NanoPulse OS** is a lightweight, portable, live operating system that runs directly from a USB stick. It is designed for creative users, offering tools for generative art, simple retro game creation (like Space Invaders), and an experimental IDE with a custom esoteric programming language. NanoPulse OS is all about providing a minimal, fun, and interactive environment for exploration and creation. It leaves absolutely no trace on your computer after shutdown.
+**NanoPulse OS** is a lightweight, portable, live operating system that runs directly from a USB stick. It is designed for creative users, offering tools for generative art, simple retro game creation (like Space Invaders), an experimental IDE with a custom esoteric programming language, and fun easter eggs. NanoPulse OS is all about providing a minimal, fun, and interactive environment for exploration and creation. It leaves absolutely no trace on your computer after shutdown.
 
 ---
 
@@ -24,7 +24,7 @@
 | **Portable**                 | Fully functional on any computer that supports USB boot, without affecting the host system. |
 | **Minimalist Design**        | Focuses on simplicity and accessibility for both novice and advanced users. |
 | **Cross-Platform Compatibility** | Compatible with most x86-based systems and works on a wide range of hardware without installation. |
-| **Creative Environment**     | Built to inspire users to experiment with code, art, and retro gaming. |
+| **Creativity**     | Built to inspire. |
 
 ---
 
@@ -39,18 +39,7 @@
 
 ### **Basic Usage Instructions**
 
-- **Generative Art**: Type `Art` in the shell (once loaded) which will create a generative hardware footprint art using the built-in tools (randomly).
-  
-- **Retro Games**: Type `Game` in the shell (once loaded) to play or modify classic games like Space Invaders. You can also create new retro games with simple scripting commands.
-
-- **Programming**: Use the custom language interpreter to run programs written in a simple, low-level syntax. **Note**: The language is intentionally a joke and not meant to be used for serious programming. It's a fun, minimalist tool to experiment with coding, but it lacks the features and capabilities of a full-fledged programming language. Open the IDE by typing `code` in the shell (once loaded) and start coding!
-
----
-
-### **Persistent Storage**
-
-- **Persistent Art**: The only data that persists across reboots on the host system is the **generative unique art footprint** created by the user. This allows you to save your creative works and reuse them in future sessions.
-- **No Host Hard Drive Modification**: NanoPulse OS does not make any permanent changes to the host system's hard drive. All files and configurations are stored in RAM, ensuring that the OS remains lightweight and non-invasive.
+Type ```help``` into the terminal to see all available commands.
 
 ---
 
@@ -93,18 +82,7 @@ If you’re interested in contributing to NanoPulse OS, feel free to fork the re
 
 ---
 
-Personal note for next steps in work: 
+### Personal note for next steps in work: 
 
-Initrd loaded by GRUB             
-                                                                         
-  GRUB loads a file (tar, cpio, or custom format) as a multiboot module. 
-  Kernel parses it into a read-only FS. Perfect for shipping default     
-  programs/art/games with the OS.                                        
-  - Modify isodir/boot/grub/grub.cfg to add module /boot/initrd.tar    
-  - Read multiboot info struct to find the module                        
-  - Tar parser (~100 lines) walks headers        
-  - Read-only open/read path                                             
-  - You'd likely combine this with A for writable scratch space  
-
-Graphics games with timer cmd integrated next
+Graphics games with timer cmd integrated, Portal cmd, Multi-Architecture type iso, csgo case gamble
 

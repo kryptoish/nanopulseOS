@@ -101,10 +101,10 @@ static void keyboard_callback(registers_t regs __attribute__((unused)))
     else if (scancode == LCTRL_REL) { ctrl_pressed = 0; }
 
     /*
-     * Ctrl+C — system-wide cancel. Detected here (before mode-specific
-     * branches) so it is never lost to a race with hlt/poll timing. Raising
-     * the flag inside the ISR means any chord ordering — press C then Ctrl,
-     * release Ctrl before the app polls, etc. — still registers.
+     * Detected here (before mode-specific branches) so it is never lost to 
+     * a race with hlt/poll timing. Raising the flag inside the ISR means 
+     * any chord ordering — press C then Ctrl, release Ctrl before the app 
+     * polls, etc. — still registers.
      */
     if (scancode == C_KEY && ctrl_pressed) {
         cancel_requested = 1;

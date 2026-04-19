@@ -61,11 +61,7 @@ static void install_palette(void) {
     }
 }
 
-/*
- * Draw a symmetric fingerprint. We generate an 80x100 tile from the PRNG,
- * then mirror it horizontally so the result looks like a unique emblem.
- * A few bright accent squares are added on top.
- */
+// Draw a symmetric fingerprint.
 static void render_fingerprint(void) {
     vga_fill(0);
 
@@ -120,12 +116,8 @@ void art_run(void) {
     render_fingerprint();
 
     /*
-     * We are reached from within the IRQ1 handler (Enter → shell_execute_command
-     * → art_run), and the IDT uses 32-bit interrupt gates which clear IF on
-     * entry. Without sti here, hlt would halt forever and no keyboard IRQ
-     * would ever fire to set the cancel flag. The PIC was EOI'd in the outer
-     * callback, so re-enabling is safe — nested keyboard IRQs just update
-     * modifier flags and return.
+     * Re-enable interrupts (sti) so keyboard IRQs can wake the CPU from hlt. 
+     * This is safe because the PIC was already EOI'd in the outer callback. 
      */
     __asm__ __volatile__("sti");
 

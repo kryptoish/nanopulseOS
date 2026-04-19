@@ -60,18 +60,12 @@ static u32        magic = 0;
 
 static const u32 ROOT_INODE = 0;
 
-/* ------------------------------------------------------------------------ */
-/* Bitmap helpers                                                           */
-/* ------------------------------------------------------------------------ */
-
+// Bitmap helper
 static int bit_get(const u8 *bm, u32 i) { return (bm[i >> 3] >> (i & 7)) & 1; }
 static void bit_set(u8 *bm, u32 i)       { bm[i >> 3] |=  (u8)(1u << (i & 7)); }
 static void bit_clear(u8 *bm, u32 i)     { bm[i >> 3] &= (u8)~(1u << (i & 7)); }
 
-/* ------------------------------------------------------------------------ */
-/* Block allocator                                                          */
-/* ------------------------------------------------------------------------ */
-
+//Block allocator
 static int block_alloc(u32 *out) {
     for (u32 i = 0; i < RAMFS_BLOCKS; i++) {
         if (!bit_get(block_bitmap, i)) {
@@ -95,10 +89,7 @@ static void chain_free(u32 head) {
     }
 }
 
-/* ------------------------------------------------------------------------ */
-/* Inode allocator                                                          */
-/* ------------------------------------------------------------------------ */
-
+// Inode allocator
 static int inode_alloc(u8 type, u32 *out) {
     for (u32 i = 0; i < RAMFS_MAX_INODES; i++) {
         if (!bit_get(inode_bitmap, i)) {
@@ -128,11 +119,8 @@ static int inode_valid(u32 idx) {
            inodes[idx].type != RAMFS_T_FREE;
 }
 
-/* ------------------------------------------------------------------------ */
-/* Block-chain I/O                                                          */
-/* ------------------------------------------------------------------------ */
-
 /*
+ * Block-chain I/O:
  * Read up to `count` bytes starting at `offset` from a block chain of length
  * `size` bytes. Returns bytes read (possibly 0) or a negative error.
  */
@@ -177,7 +165,7 @@ static int chain_write(inode_t *inode, u32 offset, const void *buf, u32 count) {
 
     /* Walk (allocating any missing intermediate blocks) to the starting
      * block. `link` always points at the slot we'd write a new block index
-     * into if we must allocate — either inode->first_block or the FAT cell
+     * into if we must allocate either inode->first_block or the FAT cell
      * of the block we just traversed. */
     u32 *link = &inode->first_block;
     u32 cur = inode->first_block;
@@ -225,10 +213,7 @@ static void chain_truncate(inode_t *inode) {
     inode->size = 0;
 }
 
-/* ------------------------------------------------------------------------ */
-/* Directory helpers                                                        */
-/* ------------------------------------------------------------------------ */
-
+// Directory helpers
 static int dir_find(u32 dir_idx, const char *name, u32 *child_idx) {
     if (!inode_valid(dir_idx) || inodes[dir_idx].type != RAMFS_T_DIR)
         return RAMFS_ERR_NOT_DIR;
@@ -327,11 +312,8 @@ static int dir_is_empty(u32 dir_idx) {
     return 1;
 }
 
-/* ------------------------------------------------------------------------ */
-/* Path parsing                                                             */
-/* ------------------------------------------------------------------------ */
-
 /*
+ * Path parsing:
  * Tokenize an absolute path. On each call writes the next '/'-separated
  * component into `out` (null-terminated) and advances `*cursor`. Returns 1
  * on success, 0 at end of path, negative on error (empty segment, too long).
@@ -414,10 +396,7 @@ static int path_resolve_parent(const char *path,
     return path_resolve(parent_buf, parent_out);
 }
 
-/* ------------------------------------------------------------------------ */
-/* Public API                                                               */
-/* ------------------------------------------------------------------------ */
-
+// Public
 void ramfs_init(void) {
     memset(block_bitmap, 0, sizeof(block_bitmap));
     memset(inode_bitmap, 0, sizeof(inode_bitmap));
@@ -564,10 +543,7 @@ int ramfs_exists(const char *path) {
     return path_resolve(path, &idx) == RAMFS_OK ? 1 : 0;
 }
 
-/* ------------------------------------------------------------------------ */
-/* FD layer                                                                 */
-/* ------------------------------------------------------------------------ */
-
+// FD
 static int fd_alloc(void) {
     for (int i = 0; i < RAMFS_MAX_FDS; i++) {
         if (!fds[i].in_use) return i;
@@ -655,10 +631,7 @@ int ramfs_close(ramfs_fd fd) {
     return RAMFS_OK;
 }
 
-/* ------------------------------------------------------------------------ */
-/* Listing and accounting                                                   */
-/* ------------------------------------------------------------------------ */
-
+// ls & usage
 int ramfs_list(const char *path, ramfs_stat_t *out, u32 max) {
     if (check_init() != RAMFS_OK) return RAMFS_ERR_IO;
 

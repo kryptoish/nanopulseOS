@@ -8,10 +8,7 @@
 /* From libc/stdio/itoa.c — no header declares it yet, so forward-declare. */
 void int_to_ascii(int n, char str[]);
 
-/* ------------------------------------------------------------------------ */
-/* Small formatting helpers                                                 */
-/* ------------------------------------------------------------------------ */
-
+// Small formatting helpers
 static void print_u32(u32 v) {
     char buf[16];
     int_to_ascii((int)v, buf);
@@ -69,10 +66,7 @@ static int split_two(char *input, char **path, char **rest) {
     return 1;
 }
 
-/* ------------------------------------------------------------------------ */
-/* Filesystem command handlers                                              */
-/* ------------------------------------------------------------------------ */
-
+// Filesystem command handlers
 static void cmd_ls(char *arg) {
     arg = trim(arg);
     const char *path = (*arg == '\0') ? "/" : arg;
@@ -214,10 +208,7 @@ static void cmd_help(void) {
     kprint("\n  help                show this list");
 }
 
-/* ------------------------------------------------------------------------ */
-/* Dispatch                                                                 */
-/* ------------------------------------------------------------------------ */
-
+// Dispatch
 void shell_execute_command(char *input) {
     if (strcasecmp(input, "clear") == 0) {
         clear_screen();
