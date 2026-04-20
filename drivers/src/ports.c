@@ -1,6 +1,6 @@
 #include "../include/ports.h"
 
-/**
+/*
  * Read a byte from the specified port
  */
 u8 port_byte_in (u16 port) {

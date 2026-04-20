@@ -73,6 +73,7 @@ Type ```help``` into the terminal to see all available commands.
 - **Advanced Scripting Features**: Extend the custom language to support more complex functionality for users who want to create more advanced programs.
 - **Art Tools**: Improve and expand the generative art tools to allow for more creative control and complexity.
 - **Performance Optimizations**: Fine-tune the OS to ensure smooth performance on a wide range of hardware configurations.
+- **Project: Artifact**: Theme it around being a lost old OS, put it on a cheap USB then scatter it around places ARG-style to find.
 
 ---
 
@@ -84,5 +85,5 @@ If you’re interested in contributing to NanoPulse OS, feel free to fork the re
 
 ### Personal note for next steps in work: 
 
-Graphics games with timer cmd integrated, Portal cmd, Multi-Architecture type iso, csgo case gamble
+Portal cmd, csgo case gamble cmd, Graphics games with timer cmd integrated, Custom Interperator IDE cmd. 
 

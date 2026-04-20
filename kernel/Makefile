@@ -32,6 +32,7 @@ $(KERNEL_ARCH_OBJS) \
 kernel/kernel.o \
 shell/shell.o \
 art/art.o \
+portal/portal.o \
 fs/ramfs.o \
 
 LIB_DEPS=\

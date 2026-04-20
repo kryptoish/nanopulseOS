@@ -20,6 +20,7 @@ SRCS := \
     src/keyboard.c \
     src/ports.c \
     src/screen.c \
+    src/speaker.c \
     src/vga.c
 
 OBJS := $(SRCS:.c=.o)

@@ -3,6 +3,7 @@
 #include <drivers/screen.h>
 #include <drivers/types.h>
 #include <kernel/art.h>
+#include <kernel/portal.h>
 #include <kernel/ramfs.h>
 
 /* From libc/stdio/itoa.c — no header declares it yet, so forward-declare. */
@@ -195,7 +196,15 @@ static void cmd_help(void) {
     kprint("\nCommands:");
     kprint("\n  clear               clear the screen");
     kprint("\n  echo <text>         print text");
+
+    // Misc:
     kprint("\n  art                 run the generative fingerprint (Ctrl+C / ESC to exit)");
+    kprint("\n  portal              play \"Still Alive\" from Portal (Ctrl+C to exit)");
+    // Game
+    // Gamble
+    // IDE
+
+    // File related:
     kprint("\n  ls [path]           list directory (default /)");
     kprint("\n  mkdir <path>        create a directory");
     kprint("\n  rmdir <path>        remove an empty directory");
@@ -205,6 +214,7 @@ static void cmd_help(void) {
     kprint("\n  write <path> <txt>  overwrite file with text");
     kprint("\n  stat <path>         show file/directory info");
     kprint("\n  df                  show filesystem usage");
+
     kprint("\n  help                show this list");
 }
 
@@ -220,6 +230,11 @@ void shell_execute_command(char *input) {
     }
     else if (strcasecmp(input, "art") == 0) {
         art_run();
+        clear_screen();
+        kprint("nanopulseOS> ");
+    }
+    else if (strcasecmp(input, "portal") == 0) {
+        portal_run();
         clear_screen();
         kprint("nanopulseOS> ");
     }

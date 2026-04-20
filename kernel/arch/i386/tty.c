@@ -56,10 +56,6 @@ void terminal_putchar(char c) {
                     terminal_buffer[to_index] = terminal_buffer[from_index];
                 }
             }
-            // for (size_t x = 0; x < VGA_WIDTH; x++) {
-            //     const size_t index = (VGA_HEIGHT - 1) * VGA_WIDTH + x;
-            //     terminal_buffer[index] = vga_entry(' ', terminal_color);
-            // }
             terminal_row = VGA_HEIGHT - 1;
         }
 	}
