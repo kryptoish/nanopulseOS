@@ -1132,7 +1132,6 @@ static const note_t still_alive_bass[] = {
 };
 
 static const lyric_t still_alive_lyrics[] = {
-    /* TODO */
     { 0, "\n" },
     { 1, "This was a triumph.\n" },
     { 7, "I'm making a note " },
