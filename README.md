@@ -85,5 +85,5 @@ If you’re interested in contributing to NanoPulse OS, feel free to fork the re
 
 ### Personal note for next steps in work: 
 
-Portal cmd (ascii), csgo case gamble cmd, Graphics games with timer cmd integrated, Custom Interperator IDE cmd. 
+csgo case gamble cmd, Graphics games with timer cmd integrated, Custom Interperator IDE cmd. 
 
