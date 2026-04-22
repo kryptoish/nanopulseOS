@@ -33,6 +33,7 @@ kernel/kernel.o \
 shell/shell.o \
 art/art.o \
 portal/portal.o \
+portal/still_alive.o \
 fs/ramfs.o \
 
 LIB_DEPS=\
