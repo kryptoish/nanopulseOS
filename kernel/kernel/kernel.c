@@ -19,7 +19,7 @@ void kernel_main(void) {
 	keyboard_init();
 	kprint("Keyboard init success\n");
 
-	init_timer(100); /* 100 Hz PIT tick — game loop/animation base. */
+	init_timer(100); /* 100 Hz PIT tick - game loop/animation base. */
 	kprint("Timer init (100 Hz)\n");
 
 	ramfs_init();

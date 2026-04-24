@@ -5,7 +5,7 @@
 /*
  * RAM filesystem internals.
  *
- * Layout (all in kernel .bss — sized at compile time, zero malloc):
+ * Layout (all in kernel .bss - sized at compile time, zero malloc):
  *
  *   data_blocks[RAMFS_BLOCKS][RAMFS_BLOCK_SIZE]  raw storage
  *   fat[RAMFS_BLOCKS]                            next-block table (FAT-style)
@@ -33,7 +33,7 @@
 
 typedef struct {
     char name[RAMFS_MAX_NAME];   /* 28 bytes, always null-terminated */
-    u32  inode;                   /* 4  — RAMFS_SLOT_FREE marks a hole */
+    u32  inode;                   /* 4  - RAMFS_SLOT_FREE marks a hole */
 } dirent_t;                      /* 32 bytes → 16 per block */
 
 typedef struct {

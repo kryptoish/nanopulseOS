@@ -4,9 +4,10 @@
 #include <drivers/types.h>
 #include <kernel/art.h>
 #include <kernel/portal.h>
+#include <kernel/gamble.h>
 #include <kernel/ramfs.h>
 
-/* From libc/stdio/itoa.c — no header declares it yet, so forward-declare. */
+/* From libc/stdio/itoa.c - no header declares it yet, so forward-declare. */
 void int_to_ascii(int n, char str[]);
 
 // Small formatting helpers
@@ -151,7 +152,7 @@ static void cmd_write(char *arg) {
     char *path, *content;
     int split = split_two(arg, &path, &content);
     if (split < 0) { kprint("\nwrite: path required"); return; }
-    /* split == 0 means empty content — valid (truncates file). */
+    /* split == 0 means empty content - valid (truncates file). */
 
     ramfs_fd fd = ramfs_open(path, RAMFS_O_WRITE | RAMFS_O_CREATE | RAMFS_O_TRUNC);
     if (fd < 0) { print_error("write", fd); return; }
@@ -200,8 +201,9 @@ static void cmd_help(void) {
     // Misc:
     kprint("\n  art                 run the generative fingerprint (Ctrl+C / ESC to exit)");
     kprint("\n  portal              play \"Still Alive\" from Portal (Ctrl+C to exit)");
+    kprint("\n  gamble              open the casino - spend coins on error-skin cases");
+    kprint("\n  inventory [recent]  list collected error skins (default: sort by rarity)");
     // Game
-    // Gamble
     // IDE
 
     // File related:
@@ -237,6 +239,19 @@ void shell_execute_command(char *input) {
         portal_run();
         clear_screen();
         kprint("nanopulseOS> ");
+    }
+    else if (strcasecmp(input, "gamble") == 0) {
+        gamble_run();
+        clear_screen();
+        kprint("nanopulseOS> ");
+    }
+    else if (strcasecmp(input, "inventory") == 0 ||
+             strcasecmp(input, "inv") == 0) {
+        gamble_inventory(0);
+    }
+    else if (strcasecmp(input, "inventory recent") == 0 ||
+             strcasecmp(input, "inv recent") == 0) {
+        gamble_inventory(1);
     }
     else if (strncasecmp(input, "ls",    2) == 0 && (input[2] == '\0' || input[2] == ' ')) {
         cmd_ls(input + 2);

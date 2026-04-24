@@ -1,6 +1,6 @@
 #include "still_alive.h"
 
-/* PORTAL — "Still Alive" data tables.
+/* PORTAL - "Still Alive" data tables.
  * Generated from a MIDI file. */
 
 const note_t still_alive_notes[] = {

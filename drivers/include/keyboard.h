@@ -23,7 +23,7 @@ int keyboard_ctrl_down(void);
 /*
  * System-wide Ctrl+C cancel. The keyboard callback sets this flag the moment
  * Ctrl+C is detected, so long-running commands can poll for it without
- * needing a ring buffer — no race even if the user chords the keys quickly.
+ * needing a ring buffer - no race even if the user chords the keys quickly.
  */
 int  keyboard_cancel_requested(void);
 void keyboard_clear_cancel(void);

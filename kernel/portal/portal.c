@@ -17,7 +17,7 @@
  */
 #define PORTAL_SWITCH_SPINS 600000
 
-/* VGA brown (#AA5500) — stock-palette orange. */
+/* VGA brown (#AA5500) - stock-palette orange. */
 #define PORTAL_ORANGE 0x06
 
 /* 1 = wipe lyric box and restart at top when full; 0 = scroll up. */
@@ -157,7 +157,7 @@ static void art_draw(const char *art) {
 void portal_run(void) {
     /* Raw mode swallows keystrokes so the user typing during playback
      * doesn't mangle the lyric display. Ctrl+C is still observed via
-     * keyboard_cancel_requested() — see keyboard.c. */
+     * keyboard_cancel_requested() - see keyboard.c. */
     keyboard_clear_cancel();
     keyboard_set_raw_mode(1);
 
@@ -291,7 +291,7 @@ void portal_run(void) {
         if (mel_done && bass_done && line == 0) break;
 
         /* --- Pace the loop. ---
-         * When interleaving we must NOT hlt — the whole point is to keep
+         * When interleaving we must NOT hlt - the whole point is to keep
          * the speaker at the current freq for ~1 ms then switch again, so
          * we burn CPU with a short spin. When only one voice is active
          * there's nothing to fake, so hlt saves power and plays cleanly. */

@@ -5,7 +5,7 @@
 
 /*
  * RAM-resident filesystem. FAT-style block chain with a fixed inode pool.
- * Survives until power-off — no disk, no persistence. All operations return
+ * Survives until power-off - no disk, no persistence. All operations return
  * 0 on success and a negative error code on failure.
  */
 
@@ -71,7 +71,7 @@ int      ramfs_close(ramfs_fd fd);
  */
 int ramfs_list(const char *path, ramfs_stat_t *out, u32 max);
 
-/* Space accounting — useful for a `df` command. */
+/* Space accounting - useful for a `df` command. */
 void ramfs_usage(u32 *blocks_used, u32 *blocks_total,
                  u32 *inodes_used, u32 *inodes_total);
 

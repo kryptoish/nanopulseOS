@@ -17,7 +17,7 @@ static u64 rdtsc(void) {
 }
 
 /*
- * xorshift64 — fast, tiny, good enough for visuals. Not cryptographic.
+ * xorshift64 - fast, tiny, good enough for visuals. Not cryptographic.
  */
 static u64 prng_state;
 static u64 xorshift(void) {
@@ -32,7 +32,7 @@ static u64 xorshift(void) {
 static void seed_from_entropy(void) {
     u64 s = rdtsc();
     s ^= (u64)get_tick() * 0x9E3779B97F4A7C15ULL;
-    /* Sample framebuffer noise — uninitialized video RAM has device-specific
+    /* Sample framebuffer noise - uninitialized video RAM has device-specific
      * patterns that contribute a small amount of per-machine entropy. */
     volatile u8 *fb = (volatile u8*)0xA0000;
     for (int i = 0; i < 64; i++) {
