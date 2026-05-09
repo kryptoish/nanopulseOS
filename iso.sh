@@ -12,7 +12,7 @@ menuentry "nanopulseos" {
 	multiboot /boot/nanopulseos.kernel
 }
 EOF
-grub-mkrescue -o nanopulseos.iso isodir
+grub-mkrescue --modules="multiboot" -o nanopulseos.iso isodir 
 
 # Before running this file to build run the following prep:
 # export PREFIX="$HOME/opt/cross"
