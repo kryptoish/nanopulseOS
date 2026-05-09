@@ -254,7 +254,7 @@ static u32 ms_to_ticks(u32 ms) {
     return t == 0 ? 1 : t;
 }
 
-static void delay_ms(u32 ms) {
+void delay_ms(u32 ms) {
     u32 target = get_tick() + ms_to_ticks(ms);
     while (get_tick() < target) {
         if (keyboard_cancel_requested()) return;

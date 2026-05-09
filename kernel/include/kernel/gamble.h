@@ -1,6 +1,8 @@
 #ifndef GAMBLE_H
 #define GAMBLE_H
 
+#include <drivers/types.h>
+
 /*
  * NanoPulse Casino - spend coins on cases to add error "skins" to a
  * session-only inventory. Balance and inventory reset on every boot.
@@ -13,5 +15,6 @@
 void gamble_run(void);
 void gamble_inventory(int sort_recent);
 void gamble_add_coins(unsigned int amount);
+void delay_ms(u32 ms);
 
 #endif

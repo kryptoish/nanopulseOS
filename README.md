@@ -9,7 +9,7 @@
 ---
 
 ### **Objective**  
-**NanoPulse OS** is a lightweight, portable, live operating system that runs directly from a USB stick. It is designed for creative users, offering tools for generative art, simple retro game creation (like Space Invaders), an experimental IDE with a custom esoteric programming language, and fun easter eggs. NanoPulse OS is all about providing a minimal, fun, and interactive environment for exploration and creation. It leaves absolutely no trace on your computer after shutdown.
+**NanoPulse OS** is a lightweight, portable, live operating system that runs directly from a USB stick. It is designed for creative users, offering tools for generative art, simple retro games, an experimental IDE with a custom esoteric programming language (soon), and fun easter eggs. NanoPulse OS is all about providing a minimal, fun, and interactive environment for exploration and creation. It leaves absolutely no trace on your computer after shutdown.
 
 ---
 
@@ -18,11 +18,11 @@
 | **Feature**                 | **Description**                                                                 |
 |-----------------------------|---------------------------------------------------------------------------------|
 | **Live System**              | Boots directly from a USB stick with no need for installation or hard drive modification. |
-| **Generative Art**           | Create hardware footprint-style generative art with simple, intuitive controls. |
-| **Retro Games**              | Includes built-in tools for designing and playing simple retro games like Space Invaders. |
+| **Generative Art**           | Create hardware footprint-style generative art which is unique to every computer. |
+| **Retro Games**              | Includes simple retro games like Tetris, CS2 cases, and Portal (credits lol). |
 | **Simple Scripting**         | Supports an easy-to-use esoteric scripting language for creating small programs. |
 | **Portable**                 | Fully functional on any computer that supports USB boot, without affecting the host system. |
-| **Minimalist Design**        | Focuses on simplicity and accessibility for both novice and advanced users. |
+| **Minimalist Design**        | Focuses on simplicity and accessibility for both novice and advanced users (literally just all in VGA text mode). |
 | **Cross-Platform Compatibility** | Compatible with most x86-based systems and works on a wide range of hardware without installation. |
 | **Creativity**     | Built to inspire. |
 
@@ -48,11 +48,10 @@ Type ```help``` into the terminal to see all available commands.
 | **Category**            | **Tools/Technologies**                                     |
 |--------------------------|-----------------------------------------------------------|
 | **Programming Languages**| C (kernel and OS development), Assembly (low-level initialization), custom esoteric language. |
-| **Graphics**             | Simple pixel-based graphics engine for retro games and generative art. |
+| **Graphics**             | Simple pixel-based graphics engine (just VGA text mode cuz Im lazy) for retro games and generative art. |
 | **Build System**         | GCC (compiling), Makefile, custom tools for building and flashing the OS image. |
 | **Bootloader**           | GRUB or Syslinux for booting from USB and handling the OS kernel loading. |
-| **User Interface**       | Lightweight graphical interface for art creation, game playing, and coding. |
-| **External Libraries**   | SDL2 (for graphics and input handling), custom libraries for scripting and game creation. |
+| **User Interface**       | Lightweight simple unix style shell for art creation, game playing, and coding. |
 
 ---
 
@@ -62,7 +61,7 @@ Type ```help``` into the terminal to see all available commands.
 2. **Generative Art**: Developing easy-to-use tools for users to create complex generative hardware footprint art with limited resources.
 3. **Custom Language Interpreter**: Designing and implementing a lightweight interpreter for a minimalist esoteric programming language that is fun and easy to use, but not intended for serious development.
 4. **Retro Game Creation**: Implementing simple game mechanics and a framework for creating and playing retro-style games (e.g., Space Invaders).
-5. **Cross-Platform Compatibility**: Ensuring the OS works on a wide range of hardware with no need for installation, including supporting booting from various USB interfaces and configurations.
+5. **Cross-Platform Compatibility**: Ensuring the OS works on a wide range of hardware, including supporting booting from various USB interfaces and configurations.
 
 ---
 
@@ -85,5 +84,5 @@ If you’re interested in contributing to NanoPulse OS, feel free to fork the re
 
 ### Personal note for next steps in work: 
 
-csgo case gamble cmd, Graphics games with timer cmd integrated, Custom Interperator IDE cmd. 
+Custom Interperator IDE cmd. 
 
