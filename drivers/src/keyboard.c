@@ -164,6 +164,7 @@ static void keyboard_callback(registers_t regs __attribute__((unused)))
 
         if (scancode == BACKSPACE) {
             kprint_backspace();
+            if (col - 2 >= 0 && col - 2 < 255) key_buffer[col - 2] = '\0';
         } else if (scancode == ENTER) {
             key_buffer[col] = '\0';
             shell_execute_command(key_buffer);
