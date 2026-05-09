@@ -804,3 +804,7 @@ exit:
     keyboard_clear_cancel();
     (void)int_width;  /* kept for future right-alignment tweaks */
 }
+
+void gamble_add_coins(unsigned int amount) {
+    coins += amount;
+}

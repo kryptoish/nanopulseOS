@@ -5,6 +5,7 @@
 #include <kernel/art.h>
 #include <kernel/portal.h>
 #include <kernel/gamble.h>
+#include <kernel/tetris.h>
 #include <kernel/ramfs.h>
 
 /* From libc/stdio/itoa.c - no header declares it yet, so forward-declare. */
@@ -203,7 +204,7 @@ static void cmd_help(void) {
     kprint("\n  portal              play \"Still Alive\" from Portal (Ctrl+C to exit)");
     kprint("\n  gamble              open the casino - spend coins on error-skin cases");
     kprint("\n  inventory [recent]  list collected error skins (default: sort by rarity)");
-    // Game
+    kprint("\n  tetris              play tetris (get coins!, Ctrl+C to exit)");
     // IDE
 
     // File related:
@@ -242,6 +243,11 @@ void shell_execute_command(char *input) {
     }
     else if (strcasecmp(input, "gamble") == 0) {
         gamble_run();
+        clear_screen();
+        kprint("nanopulseOS> ");
+    }
+    else if (strcasecmp(input, "tetris") == 0) {
+        tetris_run();
         clear_screen();
         kprint("nanopulseOS> ");
     }

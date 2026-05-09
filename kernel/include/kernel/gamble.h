@@ -12,5 +12,6 @@
  */
 void gamble_run(void);
 void gamble_inventory(int sort_recent);
+void gamble_add_coins(unsigned int amount);
 
 #endif
