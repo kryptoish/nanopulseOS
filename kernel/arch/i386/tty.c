@@ -5,12 +5,13 @@
 
 #include <kernel/tty.h>
 #include "../../drivers/include/screen.h"
+#include "../../drivers/include/fb.h"
 
 #include "vga.h"
 
 static const size_t VGA_WIDTH = 80;
 static const size_t VGA_HEIGHT = 25;
-static uint16_t* const VGA_MEMORY = (uint16_t*) 0xB8000;
+#define VGA_MEMORY ((uint16_t*) vga_shadow)
 
 static size_t terminal_row;
 static size_t terminal_column;

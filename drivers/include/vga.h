@@ -5,12 +5,11 @@
 
 #define VGA_WIDTH  320
 #define VGA_HEIGHT 200
-#define VGA_FRAMEBUFFER ((u8*)0xA0000)
 
-/* Switch the adapter into 320x200x256 linear chained Mode 13h. */
+/* Suspend the text renderer and prepare for graphics-mode drawing. */
 void vga_enter_graphics(void);
 
-/* Restore 80x25 color text mode and the BIOS font. */
+/* Wipe the framebuffer and resume the text renderer. */
 void vga_exit_graphics(void);
 
 /* Draw primitives (graphics mode only). */

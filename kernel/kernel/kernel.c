@@ -5,6 +5,7 @@
 #include <drivers/screen.h>
 #include <drivers/keyboard.h>
 #include <drivers/ports.h>
+#include <drivers/fb.h>
 #include <interrupts/isr.h>
 #include <interrupts/timer.h>
 #include <kernel/gamble.h>
@@ -12,7 +13,45 @@
 extern const char sc_ascii[];
 extern const int SC_MAX;
 
-void kernel_main(void) {
+/* Multiboot2 tag header. */
+struct mb2_tag { u32 type; u32 size; };
+
+/* Type 8: framebuffer info tag. */
+struct mb2_fb_tag {
+    u32 type; u32 size;
+    u64 addr;
+    u32 pitch;
+    u32 width;
+    u32 height;
+    u8  bpp;
+    u8  fb_type;
+    u8  reserved[2];
+};
+
+static void init_framebuffer_from_mb2(u32 magic, u32 mbi_addr) {
+    if (magic != 0x36d76289 || mbi_addr == 0) return;
+
+    u8 *p = (u8 *)mbi_addr;
+    u32 total = *(u32 *)p;
+    u8 *end   = p + total;
+    p += 8; /* skip total_size + reserved */
+
+    while (p < end) {
+        struct mb2_tag *t = (struct mb2_tag *)p;
+        if (t->type == 0) break;
+        if (t->type == 8) {
+            struct mb2_fb_tag *fb = (struct mb2_fb_tag *)t;
+            fb_init((u32)fb->addr, fb->pitch, fb->width, fb->height, fb->bpp);
+            return;
+        }
+        u32 step = (t->size + 7) & ~7u;
+        p += step;
+    }
+}
+
+void kernel_main(u32 magic, u32 mbi_addr) {
+    init_framebuffer_from_mb2(magic, mbi_addr);
+
 	terminal_initialize();
 	isr_install();
 	kprint("=== nanopulseOS Kernel Starting ===\n");
@@ -62,7 +101,7 @@ void kernel_main(void) {
 	);
 	#undef LP
 
-	delay_ms(5000);
+	delay_ms(3000);
 	clear_screen();
 	kprint("nanopulseOS\n");
 	kprint("> ");

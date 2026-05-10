@@ -21,7 +21,8 @@ SRCS := \
     src/ports.c \
     src/screen.c \
     src/speaker.c \
-    src/vga.c
+    src/vga.c \
+    src/fb.c
 
 OBJS := $(SRCS:.c=.o)
 

@@ -9,7 +9,7 @@
 ---
 
 ### **Objective**  
-**NanoPulse OS** is a lightweight, portable, live operating system that runs directly from a USB stick. It is designed for creative users, offering tools for generative art, simple retro games, an experimental IDE with a custom esoteric programming language (soon), and fun easter eggs. NanoPulse OS is all about providing a minimal, fun, and interactive environment for exploration and creation. It leaves absolutely no trace on your computer after shutdown.
+**NanoPulse OS** is a lightweight, portable, live operating system that runs directly from a USB stick (x86-32 i686). It is designed for creative users, offering tools for generative art, simple retro games, an experimental IDE with a custom esoteric programming language (soon), and fun easter eggs. NanoPulse OS is all about providing a minimal, fun, and interactive environment for exploration and creation. It leaves absolutely no trace on your computer after shutdown.
 
 ---
 
@@ -22,7 +22,7 @@
 | **Retro Games**              | Includes simple retro games like Tetris, CS2 cases, and Portal (credits lol). |
 | **Simple Scripting**         | Supports an easy-to-use esoteric scripting language for creating small programs. |
 | **Portable**                 | Fully functional on any computer that supports USB boot, without affecting the host system. |
-| **Minimalist Design**        | Focuses on simplicity and accessibility for both novice and advanced users (literally just all in VGA text mode). |
+| **Minimalist Design**        | Focuses on simplicity and accessibility for both novice and advanced users (literally just all in flat 32-bit protected mode). |
 | **Cross-Platform Compatibility** | Compatible with most x86-based systems and works on a wide range of hardware without installation. |
 | **Creativity**     | Built to inspire. |
 
@@ -32,8 +32,9 @@
 
 1. Download the NanoPulse OS image (once available).
 2. Flash the image onto a USB stick using a tool like [Rufus](https://rufus.ie/) or [Balena Etcher](https://www.balena.io/etcher/).
-3. Insert the USB stick into any computer and reboot, ensuring the BIOS/UEFI settings allow booting from USB.
-4. NanoPulse OS will boot directly from the USB and provide a graphical interface for generative art, retro games, and coding.
+3. Keep "Partition scheme" to MBR and select "Write in DD image mode" after starting (Your device may need Legacy boot ability).
+4. Insert the USB stick into any computer and reboot, ensuring the BIOS/UEFI settings allow booting from USB (secure boot off).
+5. NanoPulse OS will boot directly from the USB be functional.
 
 ---
 

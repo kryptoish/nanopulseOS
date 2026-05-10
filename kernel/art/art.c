@@ -6,10 +6,8 @@
 
 #define ESC_SC    0x01
 
-/*
- * Read the CPU's timestamp counter. Combined with the PIT tick and the
- * memory already in 0xA0000 this is our entropy source for the fingerprint.
- */
+/* Read the CPU's timestamp counter - combined with the PIT tick this is
+ * our entropy source for the per-machine fingerprint. */
 static u64 rdtsc(void) {
     u32 lo, hi;
     __asm__ __volatile__("rdtsc" : "=a"(lo), "=d"(hi));
@@ -32,11 +30,12 @@ static u64 xorshift(void) {
 static void seed_from_entropy(void) {
     u64 s = rdtsc();
     s ^= (u64)get_tick() * 0x9E3779B97F4A7C15ULL;
-    /* Sample framebuffer noise - uninitialized video RAM has device-specific
-     * patterns that contribute a small amount of per-machine entropy. */
-    volatile u8 *fb = (volatile u8*)0xA0000;
-    for (int i = 0; i < 64; i++) {
-        s ^= (u64)fb[i * 257] << ((i * 7) & 63);
+    /* Mix in a few more rdtsc reads taken across short busy waits - on the
+     * same boot they differ by clock cycles, which gives us a per-run jitter
+     * source on top of the boot-time tick. */
+    for (int i = 0; i < 8; i++) {
+        for (volatile int j = 0; j < 1000; j++) { (void)j; }
+        s ^= rdtsc() << ((i * 7) & 63);
     }
     if (s == 0) s = 0xDEADBEEFCAFEBABEULL;
     prng_state = s;

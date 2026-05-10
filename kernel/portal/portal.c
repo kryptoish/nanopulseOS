@@ -15,7 +15,7 @@
 /*
  * Pseudo-polyphony: Adust for real hardware vs QEMU test
  */
-#define PORTAL_SWITCH_SPINS 600000
+#define PORTAL_SWITCH_SPINS 1200000
 
 /* VGA brown (#AA5500) - stock-palette orange. */
 #define PORTAL_ORANGE 0x06

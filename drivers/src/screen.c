@@ -1,5 +1,4 @@
 #include "../include/screen.h"
-#include "../include/ports.h"
 #include <string.h>
 
 // PUBLIC
@@ -98,26 +97,12 @@ int print_char(char c, int col, int row, char attr) {
     return offset;
 }
 
-int get_cursor_offset() {
-    /* Use the VGA ports to get the current cursor position
-     * 1. Ask for high byte of the cursor offset (data 14)
-     * 2. Ask for low byte (data 15)
-     */
-    port_byte_out(REG_SCREEN_CTRL, 14);
-    int offset = port_byte_in(REG_SCREEN_DATA) << 8; /* High byte: << 8 */
-    port_byte_out(REG_SCREEN_CTRL, 15);
-    offset += port_byte_in(REG_SCREEN_DATA);
-    return offset * 2; /* Position * size of character cell */
-}
+/* Cursor is a software-only counter into the shadow buffer; the VGA hardware
+ * cursor doesn't exist on UEFI systems without VGA emulation. */
+static int sw_cursor_offset = 0;
 
-void set_cursor_offset(int offset) {
-    /* Similar to get_cursor_offset, but instead of reading we write data */
-    offset /= 2;
-    port_byte_out(REG_SCREEN_CTRL, 14);
-    port_byte_out(REG_SCREEN_DATA, (u8)(offset >> 8));
-    port_byte_out(REG_SCREEN_CTRL, 15);
-    port_byte_out(REG_SCREEN_DATA, (u8)(offset & 0xff));
-}
+int  get_cursor_offset(void)         { return sw_cursor_offset; }
+void set_cursor_offset(int offset)   { sw_cursor_offset = offset; }
 
 void clear_screen() {
     int screen_size = MAX_COLS * MAX_ROWS;

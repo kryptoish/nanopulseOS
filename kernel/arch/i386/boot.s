@@ -1,22 +1,38 @@
-# Declare constants for the multiboot header.
-.set ALIGN,    1<<0             # align loaded modules on page boundaries
-.set MEMINFO,  1<<1             # provide memory map
-.set FLAGS,    ALIGN | MEMINFO  # this is the Multiboot 'flag' field
-.set MAGIC,    0x1BADB002       # 'magic number' lets bootloader find the header
-.set CHECKSUM, -(MAGIC + FLAGS) # checksum of above, to prove we are multiboot
+# Multiboot2 header with framebuffer request.
+.set MB2_MAGIC,    0xe85250d6
+.set MB2_ARCH,     0
+.set MB2_LENGTH,   (mb2_end - mb2_start)
+.set MB2_CHECKSUM, -(MB2_MAGIC + MB2_ARCH + MB2_LENGTH)
 
-# Declare a header as in the Multiboot Standard.
 .section .multiboot
-.align 4
-.long MAGIC
-.long FLAGS
-.long CHECKSUM
+.align 8
+mb2_start:
+.long MB2_MAGIC
+.long MB2_ARCH
+.long MB2_LENGTH
+.long MB2_CHECKSUM
+
+# Framebuffer tag - request a 32-bit linear framebuffer (any resolution).
+.align 8
+.short 5
+.short 0
+.long  20
+.long  0
+.long  0
+.long  32
+
+# End tag.
+.align 8
+.short 0
+.short 0
+.long  8
+mb2_end:
 
 # Reserve a stack for the initial thread.
 .section .bss
 .align 16
 stack_bottom:
-.skip 16384 # 16 KiB
+.skip 16384
 stack_top:
 
 # The kernel entry point.
@@ -26,13 +42,13 @@ stack_top:
 _start:
 	movl $stack_top, %esp
 
-	# Call the global constructors.
-	call _init
+	# Save multiboot2 info pointer (EBX) and magic (EAX) for kernel_main.
+	pushl %ebx
+	pushl %eax
 
-	# Transfer control to the main kernel.
+	call _init
 	call kernel_main
 
-	# Hang if kernel_main unexpectedly returns.
 	cli
 1:	hlt
 	jmp 1b
