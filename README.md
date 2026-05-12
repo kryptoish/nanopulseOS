@@ -4,7 +4,7 @@
   <img alt="NanoPulse OS Logo" src="/screenshot/NanoPulse-OS-Logo.png">
 </picture>
 
-# **NanoPulse OS**: **A NANO Programmed Unique Live Scripting Environment**
+# **NanoPulse OS**: **A NANO Programmed OS that has Pulse**
 
 ---
 
@@ -49,7 +49,7 @@ Type ```help``` into the terminal to see all available commands.
 | **Category**            | **Tools/Technologies**                                     |
 |--------------------------|-----------------------------------------------------------|
 | **Programming Languages**| C (kernel and OS development), Assembly (low-level initialization), custom esoteric language. |
-| **Graphics**             | Simple pixel-based graphics engine (just VGA text mode cuz Im lazy) for retro games and generative art. |
+| **Graphics**             | Simple pixel-based graphics engine (just a simple framebuffer in 32-bit mode cuz Im lazy) for retro games and generative art. |
 | **Build System**         | GCC (compiling), Makefile, custom tools for building and flashing the OS image. |
 | **Bootloader**           | GRUB or Syslinux for booting from USB and handling the OS kernel loading. |
 | **User Interface**       | Lightweight simple unix style shell for art creation, game playing, and coding. |
@@ -61,7 +61,7 @@ Type ```help``` into the terminal to see all available commands.
 1. **Minimalist Design**: Creating a lean, efficient OS that can run entirely from a USB stick without needing installation or hard drive changes.
 2. **Generative Art**: Developing easy-to-use tools for users to create complex generative hardware footprint art with limited resources.
 3. **Custom Language Interpreter**: Designing and implementing a lightweight interpreter for a minimalist esoteric programming language that is fun and easy to use, but not intended for serious development.
-4. **Retro Game Creation**: Implementing simple game mechanics and a framework for creating and playing retro-style games (e.g., Space Invaders).
+4. **Retro Game Creation**: Implementing simple game mechanics and a framework for creating and playing retro-style games (e.g., Tetris).
 5. **Cross-Platform Compatibility**: Ensuring the OS works on a wide range of hardware, including supporting booting from various USB interfaces and configurations.
 
 ---
