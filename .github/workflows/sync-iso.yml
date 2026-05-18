@@ -3,6 +3,7 @@ name: Sync ISO to Website Repo
 on:
   release:
     types: [published]
+  workflow_dispatch:
 
 jobs:
   sync-iso:
