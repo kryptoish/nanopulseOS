@@ -30,7 +30,7 @@
 
 ### **How to Build and Run the Project**
 
-1. Download the NanoPulse OS image (once available).
+1. [Download](https://www.nanopulseos.org/) the NanoPulse OS image (once available).
 2. Flash the image onto a USB stick using a tool like [Rufus](https://rufus.ie/) or [Balena Etcher](https://www.balena.io/etcher/).
 3. Keep "Partition scheme" to MBR and select "Write in DD image mode" after starting (Your device may need Legacy boot ability).
 4. Insert the USB stick into any computer and reboot, ensuring the BIOS/UEFI settings allow booting from USB (secure boot off).
