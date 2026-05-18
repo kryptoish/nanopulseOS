@@ -21,12 +21,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Downloads the nanopulse.iso from the release that just triggered the workflow
-          gh release download ${{ github.event.release.tag_name }} --repo ${{ github.repository }} --pattern "nanopulse.iso" --dir .
+          gh release download ${{ github.event.release.tag_name }} --repo ${{ github.repository }} --pattern "nanopulseos.iso" --dir .
 
       - name: Replace ISO and Push to org repo
         run: |
           # Rename the downloaded ISO and move it to the root of the checked-out org repo
-          mv nanopulse.iso org-repo/nanopulseos.iso
+          mv nanopulseos.iso org-repo/nanopulseos.iso
           
           # Navigate into the org repo directory
           cd org-repo
