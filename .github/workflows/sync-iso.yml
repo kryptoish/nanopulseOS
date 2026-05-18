@@ -1,0 +1,46 @@
+name: Sync ISO to Website Repo
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  sync-iso:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout destination repository
+        uses: actions/checkout@v4
+        with:
+          repository: 'kryptoish/nanopulseos.org'
+          token: ${{ secrets.ORG_REPO_TOKEN }}
+          path: 'org-repo'
+
+      - name: Download release asset
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Downloads the nanopulse.iso from the release that just triggered the workflow
+          gh release download ${{ github.event.release.tag_name }} --repo ${{ github.repository }} --pattern "nanopulse.iso" --dir .
+
+      - name: Replace ISO and Push to org repo
+        run: |
+          # Rename the downloaded ISO and move it to the root of the checked-out org repo
+          mv nanopulse.iso org-repo/nanopulseos.iso
+          
+          # Navigate into the org repo directory
+          cd org-repo
+          
+          # Configure Git as an automated bot
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          # Stage the file
+          git add nanopulseos.iso
+          
+          # Check if the file actually changed before trying to commit to prevent empty commit errors
+          if git diff --staged --quiet; then
+            echo "No changes detected. The ISO is identical."
+          else
+            git commit -m "Auto-update nanopulseos.iso from release ${{ github.event.release.tag_name }}"
+            git push origin main
+          fi
