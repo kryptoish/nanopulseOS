@@ -195,30 +195,32 @@ static void cmd_df(void) {
 }
 
 static void cmd_help(void) {
-    kprint("\nCommands:");
+    kprint("\n--Commands--:");
     kprint("\n  clear               clear the screen");
+
+    // Posix standard:
     kprint("\n  echo <text>         print text");
-
-    // Misc:
-    kprint("\n  art                 run the generative fingerprint (Ctrl+C / ESC to exit)");
-    kprint("\n  portal              play \"Still Alive\" from Portal (Ctrl+C to exit)");
-    kprint("\n  gamble              open the casino - spend coins on error-skin cases");
-    kprint("\n  inventory [recent]  list collected error skins (default: sort by rarity)");
-    kprint("\n  tetris              play tetris (get coins!, Ctrl+C to exit)");
-    // IDE
-
-    // File related:
     kprint("\n  ls [path]           list directory (default /)");
     kprint("\n  mkdir <path>        create a directory");
     kprint("\n  rmdir <path>        remove an empty directory");
     kprint("\n  touch <path>        create an empty file");
+    kprint("\n  ed                  opens file editor (ESC to exit) (not implemented yet)");
     kprint("\n  rm <path>           delete a file");
     kprint("\n  cat <path>          print a file's contents");
-    kprint("\n  write <path> <txt>  overwrite file with text");
-    kprint("\n  stat <path>         show file/directory info");
     kprint("\n  df                  show filesystem usage");
 
-    kprint("\n  help                show this list");
+    // Non-standard
+    kprint("\n  write <path> <txt>  overwrite file with text");
+    kprint("\n  stat <path>         show file/directory info");
+
+    // Misc:
+    kprint("\n\n  art                 run the generative fingerprint (Ctrl+C / ESC to exit)");
+    kprint("\n  portal              play \"Still Alive\" from Portal (Ctrl+C to exit)");
+    kprint("\n  gamble              open the casino - spend coins on error-skin cases");
+    kprint("\n  inventory [recent]  list collected error skins (default: sort by rarity)");
+    kprint("\n  tetris              play tetris (get coins!, Ctrl+C to exit)");
+
+    kprint("\n\n  help                show this list");
 }
 
 // Dispatch
