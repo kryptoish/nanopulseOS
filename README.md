@@ -9,22 +9,12 @@
 ---
 
 ### **Objective**  
-**NanoPulse OS** is a lightweight, portable, live operating system that runs directly from a USB stick (x86-32 i686). It is designed for creative users, offering tools for generative art, simple retro games, an experimental IDE with a custom esoteric programming language (soon), and fun easter eggs. NanoPulse OS is all about providing a minimal, fun, and interactive environment for exploration and creation. It leaves absolutely no trace on your computer after shutdown.
+**NanoPulse OS** is a lightweight, portable, live operating system that runs directly from a USB stick (x86-32 i686). It is designed for learning/hobby usage and includes -> generative art, simple retro games, an experimental IDE with a custom esoteric programming language (soon), and fun easter eggs. NanoPulse OS is all about providing a minimal, fun, and interactive environment for exploration and creation. It leaves absolutely no trace on your computer after shutdown.
 
 ---
 
 ### **Key Features**  
-
-| **Feature**                 | **Description**                                                                 |
-|-----------------------------|---------------------------------------------------------------------------------|
-| **Live System**              | Boots directly from a USB stick with no need for installation or hard drive modification. |
-| **Generative Art**           | Create hardware footprint-style generative art which is unique to every computer. |
-| **Retro Games**              | Includes simple retro games like Tetris, CS2 cases, and Portal (credits lol). |
-| **Simple Scripting**         | Supports an easy-to-use esoteric scripting language for creating small programs. |
-| **Portable**                 | Fully functional on any computer that supports USB boot, without affecting the host system. |
-| **Minimalist Design**        | Focuses on simplicity and accessibility for both novice and advanced users (literally just all in flat 32-bit protected mode). |
-| **Cross-Platform Compatibility** | Compatible with most x86-based systems and works on a wide range of hardware without installation. |
-| **Creativity**     | Built to inspire. |
+Live system booted from USB, pseudo-random/hardware-based generative art, retro games like Tetris, esoteric scripting language (not yet implemented), lightweight portability, simple flat text based design reminiscent of older operating systems, and pretty decent x86 laptop compatibility (as long as you have legacy boot mode).
 
 ---
 
@@ -32,9 +22,11 @@
 
 1. [Download](https://www.nanopulseos.org/) the NanoPulse OS image (once available).
 2. Flash the image onto a USB stick using a tool like [Rufus](https://rufus.ie/) or [Balena Etcher](https://www.balena.io/etcher/).
-3. Keep "Partition scheme" to MBR and select "Write in DD image mode" after starting (Your device may need Legacy boot ability).
+3. Keep "Partition scheme" to MBR and select "Write in DD image mode" after starting (Your device will most likely need Legacy boot ability).
 4. Insert the USB stick into any computer and reboot, ensuring the BIOS/UEFI settings allow booting from USB (secure boot off).
 5. NanoPulse OS will boot directly from the USB be functional.
+
+You can also try it out on the website which I have added a v86 emulator in a website.
 
 ---
 
@@ -46,33 +38,31 @@ Type ```help``` into the terminal to see all available commands.
 
 ### **Technologies and Tools**  
 
-| **Category**            | **Tools/Technologies**                                     |
-|--------------------------|-----------------------------------------------------------|
-| **Programming Languages**| C (kernel and OS development), Assembly (low-level initialization), custom esoteric language. |
-| **Graphics**             | Simple pixel-based graphics engine (just a simple framebuffer in 32-bit mode cuz Im lazy) for retro games and generative art. |
-| **Build System**         | GCC (compiling), Makefile, custom tools for building and flashing the OS image. |
-| **Bootloader**           | GRUB or Syslinux for booting from USB and handling the OS kernel loading. |
-| **User Interface**       | Lightweight simple unix style shell for art creation, game playing, and coding. |
+- Kernel written in C & x86 Assembly
+- Build system uses GCC, Makefiele & grubmkrescue for .iso generation
+- Graphics is a Double framebuffer 32-bit mode (for that old effect)
+- Uses GRUB for bootloading
+- Some posix cmds and mostly just fun little extra features (use ```help```)
 
 ---
 
-### **Scope and Challenges**
+### **Scope and Challenges/Goals**
 
-1. **Minimalist Design**: Creating a lean, efficient OS that can run entirely from a USB stick without needing installation or hard drive changes.
-2. **Generative Art**: Developing easy-to-use tools for users to create complex generative hardware footprint art with limited resources.
-3. **Custom Language Interpreter**: Designing and implementing a lightweight interpreter for a minimalist esoteric programming language that is fun and easy to use, but not intended for serious development.
-4. **Retro Game Creation**: Implementing simple game mechanics and a framework for creating and playing retro-style games (e.g., Tetris).
-5. **Cross-Platform Compatibility**: Ensuring the OS works on a wide range of hardware, including supporting booting from various USB interfaces and configurations.
+1. Minimalist Design
+2. Generative Art
+3. Custom Language Interpreter
+4. Retro Game Creation
+5. Wide-range of x86 laptop Compatibility
 
 ---
 
-### **Future Plans**
+### **Future Plans?**
 
-- **Custom Bootloader, Custom Programming language, Custom Compiler**: To make the whole OS unique and mine. Right now I am using GRUB, C, GCC for these purposes.
+- **Custom Bootloader, Custom Programming language, Custom Compiler**: To make the whole OS unique and mine. Right now I am using GRUB, C, GCC for these purposes. (This is farfetched timeline wise)
 - **Expanded Game Library**: Add more retro games and interactive challenges for users.
 - **Advanced Scripting Features**: Extend the custom language to support more complex functionality for users who want to create more advanced programs.
 - **Art Tools**: Improve and expand the generative art tools to allow for more creative control and complexity.
-- **Performance Optimizations**: Fine-tune the OS to ensure smooth performance on a wide range of hardware configurations.
+- **Performance Optimizations**: Fine-tune the OS to ensure smooth performance on a wide range of hardware configurations/compatibility.
 - **Project: Artifact**: Theme it around being a lost old OS, put it on a cheap USB then scatter it around places ARG-style to find.
 
 ---
