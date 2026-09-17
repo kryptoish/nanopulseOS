@@ -8,17 +8,16 @@
 
 ---
 
-### **Objective**  
 **NanoPulse OS** is a lightweight, portable, live operating system that runs directly from a USB stick (x86-32 i686). It is designed for learning/hobby usage and includes -> generative art, simple retro games, an experimental IDE with a custom esoteric programming language (soon), and fun easter eggs. NanoPulse OS is all about providing a minimal, fun, and interactive environment for exploration and creation. It leaves absolutely no trace on your computer after shutdown.
 
 ---
 
-### **Key Features**  
+### **Features**  
 Live system booted from USB, pseudo-random/hardware-based generative art, retro games like Tetris, esoteric scripting language (not yet implemented), lightweight portability, simple flat text based design reminiscent of older operating systems, and pretty decent x86 laptop compatibility (as long as you have legacy boot mode).
 
 ---
 
-### **How to Build and Run the Project**
+### **How to use NanopulseOS**
 
 1. [Download](https://www.nanopulseos.org/) the NanoPulse OS image (once available).
 2. Flash the image onto a USB stick using a tool like [Rufus](https://rufus.ie/) or [Balena Etcher](https://www.balena.io/etcher/).
@@ -30,13 +29,13 @@ You can also try it out on the website which I have added a v86 emulator in a we
 
 ---
 
-### **Basic Usage Instructions**
+### **Usage**
 
 Type ```help``` into the terminal to see all available commands.
 
 ---
 
-### **Technologies and Tools**  
+### **Technologies**  
 
 - Kernel written in C & x86 Assembly
 - Build system uses GCC, Makefiele & grubmkrescue for .iso generation
@@ -46,7 +45,7 @@ Type ```help``` into the terminal to see all available commands.
 
 ---
 
-### **Scope and Challenges/Goals**
+### **Main Challenges/Goals**
 
 1. Minimalist Design
 2. Generative Art
