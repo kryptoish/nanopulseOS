@@ -25,7 +25,7 @@ Live system booted from USB, pseudo-random/hardware-based generative art, retro 
 4. Insert the USB stick into any computer and reboot, ensuring the BIOS/UEFI settings allow booting from USB (secure boot off).
 5. NanoPulse OS will boot directly from the USB be functional.
 
-You can also try it out on the website which I have added a v86 emulator in a website.
+You can also try it out on the website which I have added a v86 emulator (Wallahi don't ask me how it works) in a website.
 
 ---
 
@@ -38,8 +38,8 @@ Type ```help``` into the terminal to see all available commands.
 ### **Technologies**  
 
 - Kernel written in C & x86 Assembly
-- Build system uses GCC, Makefiele & grubmkrescue for .iso generation
-- Graphics is a Double framebuffer 32-bit mode (for that old effect)
+- Build system uses GCC, Makefile & grubmkrescue for .iso generation
+- Graphics is a framebuffer 32-bit mode (for that old effect)
 - Uses GRUB for bootloading
 - Some posix cmds and mostly just fun little extra features (use ```help```)
 
@@ -49,7 +49,7 @@ Type ```help``` into the terminal to see all available commands.
 
 1. Minimalist Design
 2. Generative Art
-3. Custom Language Interpreter
+3. Custom Language Interpreter (WIP)
 4. Retro Game Creation
 5. Wide-range of x86 laptop Compatibility
 
