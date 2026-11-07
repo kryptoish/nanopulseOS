@@ -4,8 +4,8 @@
 #include <string.h>
 
 #include <kernel/tty.h>
-#include "../../drivers/include/screen.h"
-#include "../../drivers/include/fb.h"
+#include <drivers/screen.h>
+#include <drivers/fb.h>
 
 #include "vga.h"
 

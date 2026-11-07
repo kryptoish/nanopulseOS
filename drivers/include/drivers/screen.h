@@ -1,8 +1,8 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 
-#include "types.h"
-#include "fb.h"
+#include <drivers/types.h>
+#include <drivers/fb.h>
 
 #define VIDEO_ADDRESS (vga_shadow)
 #define MAX_ROWS 25

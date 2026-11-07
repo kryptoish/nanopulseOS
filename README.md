@@ -17,7 +17,7 @@ Live system booted from USB, pseudo-random/hardware-based generative art, retro 
 
 ---
 
-### **How to use NanopulseOS**
+### **How to use/try NanopulseOS**
 
 1. [Download](https://www.nanopulseos.org/) the NanoPulse OS image (once available).
 2. Flash the image onto a USB stick using a tool like [Rufus](https://rufus.ie/) or [Balena Etcher](https://www.balena.io/etcher/).
@@ -35,7 +35,7 @@ Type ```help``` into the terminal to see all available commands.
 
 ---
 
-### **Technologies**  
+### **Specs in Dev**  
 
 - Kernel written in C & x86 Assembly
 - Build system uses GCC, Makefile & grubmkrescue for .iso generation
@@ -45,7 +45,7 @@ Type ```help``` into the terminal to see all available commands.
 
 ---
 
-### **Main Challenges/Goals**
+### **Main Goals**
 
 1. Minimalist Design
 2. Generative Art
@@ -60,7 +60,6 @@ Type ```help``` into the terminal to see all available commands.
 - **Custom Bootloader, Custom Programming language, Custom Compiler**: To make the whole OS unique and mine. Right now I am using GRUB, C, GCC for these purposes. (This is farfetched timeline wise)
 - **Expanded Game Library**: Add more retro games and interactive challenges for users.
 - **Advanced Scripting Features**: Extend the custom language to support more complex functionality for users who want to create more advanced programs.
-- **Art Tools**: Improve and expand the generative art tools to allow for more creative control and complexity.
 - **Performance Optimizations**: Fine-tune the OS to ensure smooth performance on a wide range of hardware configurations/compatibility.
 - **Project: Artifact**: Theme it around being a lost old OS, put it on a cheap USB then scatter it around places ARG-style to find.
 
@@ -74,5 +73,4 @@ If you’re interested in contributing to NanoPulse OS, feel free to fork the re
 
 ### Personal note for next steps in work: 
 
-Custom Interperator IDE cmd. 
-
+Custom Interperator IDE cmd -> bs-interpretor (soon to be added)

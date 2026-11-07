@@ -1,5 +1,5 @@
-#include "../include/speaker.h"
-#include "../include/ports.h"
+#include <drivers/speaker.h>
+#include <drivers/ports.h>
 
 /* PIT input clock: ~1.19318 MHz. Dividing yields the square-wave period. */
 #define PIT_INPUT_HZ 1193180

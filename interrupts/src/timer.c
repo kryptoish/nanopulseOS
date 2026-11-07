@@ -1,10 +1,9 @@
-#include "../include/timer.h"
-#include "../../drivers/include/screen.h"
-#include "../../drivers/include/types.h"
-#include "../../drivers/include/ports.h"
-#include "../../drivers/include/fb.h"
-#include "../include/isr.h"
-#include <string.h>
+#include <interrupts/timer.h>
+#include <drivers/screen.h>
+#include <drivers/types.h>
+#include <drivers/ports.h>
+#include <drivers/fb.h>
+#include <interrupts/isr.h>
 
 static volatile u32 tick = 0;
 
@@ -30,5 +29,3 @@ void init_timer(u32 freq) {
     port_byte_out(0x40, low);
     port_byte_out(0x40, high);
 }
-
-

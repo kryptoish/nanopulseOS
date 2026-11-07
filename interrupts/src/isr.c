@@ -1,9 +1,8 @@
-#include "../include/isr.h"
-#include "../include/idt.h"
-#include "../../drivers/include/screen.h"
-#include "../../drivers/include/ports.h"
-#include "../../drivers/include/types.h"
-#include <string.h>
+#include <interrupts/isr.h>
+#include <interrupts/idt.h>
+#include <drivers/screen.h>
+#include <drivers/ports.h>
+#include <drivers/types.h>
 
 // External reference to scancode arrays from keyboard driver
 extern const char sc_ascii[];
@@ -42,26 +41,26 @@ void isr_install() {
     for (int i = 0; i < 256; i++) {
         interrupt_handlers[i] = 0;
     }
-    
+
     // Set up GDT first
     set_gdt_entry(0, 0, 0, 0, 0);                // Null segment
     set_gdt_entry(1, 0, 0xFFFFFFFF, 0x9A, 0xCF); // Code segment (32-bit)
     set_gdt_entry(2, 0, 0xFFFFFFFF, 0x92, 0xCF); // Data segment
     set_gdt_entry(3, 0, 0xFFFFFFFF, 0xFA, 0xCF); // User code segment
     set_gdt_entry(4, 0, 0xFFFFFFFF, 0xF2, 0xCF); // User data segment
-    
+
     // Set up TSS for proper stack switching
     write_tss(5, KERNEL_DS, 0x10FF0);  // Kernel stack at 0x10FF0
     set_gdt();
-    
+
     // Register exception handlers
     for (int i = 0; i < 32; i++) {
         interrupt_handlers[i] = exception_handler;
     }
-    
+
     // Register keyboard handler
     interrupt_handlers[33] = keyboard_interrupt_handler;  // IRQ1 = interrupt 33
-    
+
     set_idt_gate(0, (u32)isr0);
     set_idt_gate(1, (u32)isr1);
     set_idt_gate(2, (u32)isr2);
@@ -94,27 +93,27 @@ void isr_install() {
     set_idt_gate(29, (u32)isr29);
     set_idt_gate(30, (u32)isr30);
     set_idt_gate(31, (u32)isr31);
-    
+
     // ICW1: start initialization sequence
     port_byte_out(0x20, 0x11);
     port_byte_out(0xA0, 0x11);
-    
+
     // ICW2: remap IRQ table
     port_byte_out(0x21, 0x20);  // Master PIC: IRQ 0-7 -> interrupts 32-39
     port_byte_out(0xA1, 0x28);  // Slave PIC: IRQ 8-15 -> interrupts 40-47
-    
+
     // ICW3: tell PICs how they're cascaded
     port_byte_out(0x21, 0x04);
     port_byte_out(0xA1, 0x02);
-    
+
     // ICW4: set 8086 mode
     port_byte_out(0x21, 0x01);
     port_byte_out(0xA1, 0x01);
-    
+
     // Set interrupt masks: enable IRQ0 (timer) and IRQ1 (keyboard).
     port_byte_out(0x21, 0xFC);  // 1111_1100 -> unmask IRQ0 and IRQ1
     port_byte_out(0xA1, 0xFF);  // Slave PIC: disable all
-    
+
     // Install the IRQs
     set_idt_gate(32, (u32)irq0);
     set_idt_gate(33, (u32)irq1);
@@ -184,7 +183,7 @@ static void exception_handler(registers_t regs) {
         kprint("Unknown exception");
     }
     kprint("\n");
-    
+
     // For now, just halt the system on exception
     __asm__ __volatile__("cli");
     __asm__ __volatile__("hlt");
@@ -196,7 +195,7 @@ void isr_handler(registers_t r) {
         kprint("CPU Exception received: ");
         kprint(exception_messages[r.int_no]);
         kprint("\n");
-        
+
         // For now, just halt the system on exception
         __asm__ __volatile__("cli");
         __asm__ __volatile__("hlt");
@@ -219,5 +218,3 @@ void irq_handler(registers_t r) {
         handler(r);
     }
 }
-
-

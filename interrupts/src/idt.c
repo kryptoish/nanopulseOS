@@ -1,4 +1,4 @@
-#include "../include/idt.h"
+#include <interrupts/idt.h>
 #include <string.h>
 
 idt_gate_t idt[IDT_ENTRIES];
@@ -19,11 +19,11 @@ void set_gdt_entry(int num, u32 base, u32 limit, u8 access, u8 gran) {
 }
 
 void write_tss(int num, u16 ss0, u32 esp0) {
-    // Firstly, let's compute the base and limit of our entry into the GDT.
+    // compute the base and limit of our entry into the GDT.
     u32 base = (u32) &tss;
     u32 limit = base + sizeof(tss);
 
-    // Now, add our TSS descriptor's address to the GDT.
+    // add our TSS descriptor's address to the GDT.
     set_gdt_entry(num, base, limit, 0xE9, 0x00);
 
     // Ensure the descriptor is initially zero.
@@ -31,7 +31,7 @@ void write_tss(int num, u16 ss0, u32 esp0) {
 
     tss.ss0  = ss0;  // Set the kernel stack segment.
     tss.esp0 = esp0; // Set the kernel stack pointer.
-    tss.cs   = KERNEL_CS;     
+    tss.cs   = KERNEL_CS;
     tss.ss   = KERNEL_DS;
     tss.ds   = KERNEL_DS;
     tss.es   = KERNEL_DS;

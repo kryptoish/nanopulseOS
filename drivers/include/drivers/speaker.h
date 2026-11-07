@@ -1,7 +1,7 @@
 #ifndef SPEAKER_H
 #define SPEAKER_H
 
-#include "types.h"
+#include <drivers/types.h>
 
 /*
  * PC speaker driver. Routes PIT channel 2's square-wave output to the

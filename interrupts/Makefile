@@ -11,7 +11,7 @@ INCLUDEDIR ?=$(PREFIX)/include
 LIBDIR ?=$(EXEC_PREFIX)/lib
 
 CFLAGS := $(CFLAGS) -ffreestanding -Wall -Wextra
-CPPFLAGS := $(CPPFLAGS)
+CPPFLAGS := $(CPPFLAGS) -Iinclude
 
 # Source files and object files
 SRCS := \
@@ -48,8 +48,8 @@ clean:
 install: install-headers install-libs
 
 install-headers:
-	mkdir -p $(DESTDIR)$(INCLUDEDIR)/interrupts
-	cp -R --preserve=timestamps include/. $(DESTDIR)$(INCLUDEDIR)/interrupts
+	mkdir -p $(DESTDIR)$(INCLUDEDIR)
+	cp -R --preserve=timestamps include/. $(DESTDIR)$(INCLUDEDIR)/.
 
 install-libs: $(LIBINTERRUPTS)
 	mkdir -p $(DESTDIR)$(LIBDIR)

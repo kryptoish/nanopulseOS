@@ -1,6 +1,6 @@
-#include "../include/vga.h"
-#include "../include/fb.h"
-#include "../include/types.h"
+#include <drivers/vga.h>
+#include <drivers/fb.h>
+#include <drivers/types.h>
 
 /* Software palette: index → 24-bit packed RGB (matches fb's color format). */
 static u32 software_palette[256];

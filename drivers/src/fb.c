@@ -1,5 +1,5 @@
-#include "../include/fb.h"
-#include "../include/font.h"
+#include <drivers/fb.h>
+#include <drivers/font.h>
 
 u8 vga_shadow[FB_TEXT_COLS * FB_TEXT_ROWS * 2];
 

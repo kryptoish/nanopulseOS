@@ -1,0 +1,7 @@
+-ffreestanding
+-std=gnu11
+-D__is_kernel
+-Idrivers/include
+-Iinterrupts/include
+-Ikernel/include
+-Ilibc/include

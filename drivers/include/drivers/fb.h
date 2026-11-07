@@ -1,7 +1,7 @@
 #ifndef FB_H
 #define FB_H
 
-#include "types.h"
+#include <drivers/types.h>
 
 /* 80x25 text grid that mirrors what kernel writes via screen.h */
 #define FB_TEXT_COLS 80

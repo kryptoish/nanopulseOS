@@ -1,8 +1,8 @@
-#include "../include/keyboard.h"
-#include "../include/ports.h"
-#include "../../interrupts/include/isr.h"
+#include <drivers/keyboard.h>
+#include <drivers/ports.h>
+#include <interrupts/isr.h>
 #include <drivers/screen.h>
-#include "../../kernel/include/kernel/shell.h"
+#include <kernel/shell.h>
 #include <string.h>
 #include <stddef.h>
 

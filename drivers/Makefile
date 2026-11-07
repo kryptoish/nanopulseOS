@@ -13,7 +13,7 @@ INCLUDEDIR ?=$(PREFIX)/include
 LIBDIR ?=$(EXEC_PREFIX)/lib
 
 CFLAGS := $(CFLAGS) -ffreestanding -Wall -Wextra
-CPPFLAGS := $(CPPFLAGS) --sysroot=$(SYSROOT)
+CPPFLAGS := $(CPPFLAGS) -Iinclude --sysroot=$(SYSROOT)
 
 # Source files and object files
 SRCS := \
@@ -49,8 +49,8 @@ clean:
 install: install-headers install-libs
 
 install-headers:
-	mkdir -p $(DESTDIR)$(INCLUDEDIR)/drivers
-	cp -R --preserve=timestamps include/. $(DESTDIR)$(INCLUDEDIR)/drivers
+	mkdir -p $(DESTDIR)$(INCLUDEDIR)
+	cp -R --preserve=timestamps include/. $(DESTDIR)$(INCLUDEDIR)/.
 
 install-libs: $(LIBDRIVERS)
 	mkdir -p $(DESTDIR)$(LIBDIR)

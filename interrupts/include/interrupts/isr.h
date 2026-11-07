@@ -1,7 +1,7 @@
 #ifndef ISR_H
 #define ISR_H
 
-#include "../../drivers/include/types.h"
+#include <drivers/types.h>
 
 /* ISRs reserved for CPU exceptions */
 extern void isr0();

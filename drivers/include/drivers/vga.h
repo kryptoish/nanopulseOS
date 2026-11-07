@@ -1,7 +1,7 @@
 #ifndef VGA_H
 #define VGA_H
 
-#include "types.h"
+#include <drivers/types.h>
 
 #define VGA_WIDTH  320
 #define VGA_HEIGHT 200
