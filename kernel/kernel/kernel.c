@@ -7,9 +7,6 @@
 #include <interrupts/timer.h>
 #include <kernel/gamble.h>
 
-extern const char sc_ascii[];
-extern const int SC_MAX;
-
 /* Multiboot2 tag header. */
 struct mb2_tag { u32 type; u32 size; };
 
@@ -105,10 +102,6 @@ void kernel_main(u32 magic, u32 mbi_addr) {
 
 	while(1) {
         // Check for keyboard input
-		if (check_keyboard_interrupt()) {
-			// Keyboard input is handled in the interrupt callback
-			// This just ensures we process any pending input
-		}
-		__asm__ __volatile__("hlt");
+		__asm__ __volatile__("hlt"); // interrupt based kernel procedure
 	}
 }

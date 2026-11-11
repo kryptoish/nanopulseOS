@@ -4,35 +4,11 @@
 #include <drivers/ports.h>
 #include <drivers/types.h>
 
-// External reference to scancode arrays from keyboard driver
-extern const char sc_ascii[];
-extern const int SC_MAX;
 
 isr_t interrupt_handlers[256];
 
 // Forward declarations
-static void exception_handler(registers_t regs);
-
-// Keyboard interrupt handler - debug print scancode and ascii
-static void keyboard_interrupt_handler(registers_t regs) {
-    (void)regs; // unused
-
-    u8 scancode = port_byte_in(0x60);   // read scancode to reset controller
-    port_byte_out(0x20, 0x20);          // send EOI to PIC
-
-    /* Build small debug string: [HH ] */
-    const char hexmap[] = "0123456789ABCDEF";
-    char msg[6] = { '[', hexmap[(scancode >> 4) & 0xF], hexmap[scancode & 0xF], ']', ' ', 0 };
-    kprint(msg);                        // always show scancode
-
-    if (scancode < 0x80 && scancode <= SC_MAX) {
-        char c = sc_ascii[scancode];
-        if (c != '?') {
-            char s[2] = { c, 0 };
-            kprint(s);
-        }
-    }
-}
+static void exception_handler(registers_t *regs);
 
 /* Can't do this with a loop because we need the address
  * of the function names */
@@ -57,9 +33,6 @@ void isr_install() {
     for (int i = 0; i < 32; i++) {
         interrupt_handlers[i] = exception_handler;
     }
-
-    // Register keyboard handler
-    interrupt_handlers[33] = keyboard_interrupt_handler;  // IRQ1 = interrupt 33
 
     set_idt_gate(0, (u32)isr0);
     set_idt_gate(1, (u32)isr1);
@@ -175,10 +148,10 @@ char *exception_messages[] = {
 };
 
 // Basic exception handler
-static void exception_handler(registers_t regs) {
+static void exception_handler(registers_t *regs) {
     kprint("Exception received: ");
-    if (regs.int_no < 32) {
-        kprint(exception_messages[regs.int_no]);
+    if (regs->int_no < 32) {
+        kprint(exception_messages[regs->int_no]);
     } else {
         kprint("Unknown exception");
     }
@@ -189,11 +162,11 @@ static void exception_handler(registers_t regs) {
     __asm__ __volatile__("hlt");
 }
 
-void isr_handler(registers_t r) {
+void isr_handler(registers_t *r) {
     // Only handle CPU exceptions (0-31), not IRQs
-    if (r.int_no < 32) {
+    if (r->int_no < 32) {
         kprint("CPU Exception received: ");
-        kprint(exception_messages[r.int_no]);
+        kprint(exception_messages[r->int_no]);
         kprint("\n");
 
         // For now, just halt the system on exception
@@ -206,15 +179,15 @@ void register_interrupt_handler(u8 n, isr_t handler) {
     interrupt_handlers[n] = handler;
 }
 
-void irq_handler(registers_t r) {
+void irq_handler(registers_t *r) {
     /* After every interrupt we need to send an EOI to the PICs
      * or they will not send another interrupt again */
-    if (r.int_no >= 40) port_byte_out(0xA0, 0x20); /* slave */
+    if (r->int_no >= 40) port_byte_out(0xA0, 0x20); /* slave */
     port_byte_out(0x20, 0x20); /* master */
 
     /* Handle the interrupt in a more modular way */
-    if (interrupt_handlers[r.int_no] != 0) {
-        isr_t handler = interrupt_handlers[r.int_no];
+    if (interrupt_handlers[r->int_no] != 0) {
+        isr_t handler = interrupt_handlers[r->int_no];
         handler(r);
     }
 }

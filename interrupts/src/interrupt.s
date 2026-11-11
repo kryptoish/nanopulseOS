@@ -15,7 +15,9 @@ isr_common_stub:
 	mov gs, ax
 	
     ; 2. Call C handler
+	push esp      ; pass registers_t* (frame stays owned by this stub)
 	call isr_handler
+	add esp, 4
 	
     ; 3. Restore state
 	pop eax 
@@ -39,7 +41,9 @@ irq_common_stub:
     mov es, ax
     mov fs, ax
     mov gs, ax
+    push esp ; pass registers_t* (frame stays owned by this stub)
     call irq_handler ; Different than the ISR code
+    add esp, 4
     pop ebx  ; Different than the ISR code
     mov ds, bx
     mov es, bx

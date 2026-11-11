@@ -9,7 +9,7 @@ static volatile u32 tick = 0;
 
 u32 get_tick(void) { return tick; }
 
-static void timer_callback(registers_t regs) {
+static void timer_callback(registers_t *regs) {
     tick++;
     /* Refresh framebuffer at ~33 Hz (every 3 ticks at 100 Hz). */
     if ((tick % 3) == 0) fb_present();

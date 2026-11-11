@@ -76,20 +76,7 @@ void backspace(char s[]) {
     if (len > 0) s[len-1] = '\0';
 }
 
-/* Global flag to indicate keyboard interrupt received */
-volatile int keyboard_interrupt_received = 0;
-
-int check_keyboard_interrupt() {
-    if (keyboard_interrupt_received) {
-        keyboard_interrupt_received = 0;
-        return 1;
-    }
-    return 0;
-}
-
-static volatile char key_queue = 0;
-
-static void keyboard_callback(registers_t regs __attribute__((unused)))
+static void keyboard_callback(registers_t *regs __attribute__((unused)))
 {
     u8 scancode = port_byte_in(0x60);
     port_byte_out(0x20, 0x20); /* EOI */
@@ -101,9 +88,9 @@ static void keyboard_callback(registers_t regs __attribute__((unused)))
     else if (scancode == LCTRL_REL) { ctrl_pressed = 0; }
 
     /*
-     * Detected here (before mode-specific branches) so it is never lost to 
-     * a race with hlt/poll timing. Raising the flag inside the ISR means 
-     * any chord ordering - press C then Ctrl, release Ctrl before the app 
+     * Detected here (before mode-specific branches) so it is never lost to
+     * a race with hlt/poll timing. Raising the flag inside the ISR means
+     * any chord ordering - press C then Ctrl, release Ctrl before the app
      * polls, etc. - still registers.
      */
     if (scancode == C_KEY && ctrl_pressed) {
@@ -114,8 +101,6 @@ static void keyboard_callback(registers_t regs __attribute__((unused)))
             for (int i = 0; i < 256; i++) key_buffer[i] = '\0';
             kprint("^C\n> ");
         }
-        key_queue = scancode;
-        keyboard_interrupt_received = 1;
         return;
     }
 
@@ -123,39 +108,29 @@ static void keyboard_callback(registers_t regs __attribute__((unused)))
      * scancode so graphics-mode apps can poll it. */
     if (raw_mode) {
         raw_last_scancode = scancode;
-        key_queue = scancode;
-        keyboard_interrupt_received = 1;
         return;
     }
 
     if (scancode == LSHIFT || scancode == RSHIFT ||
         scancode == LSHIFT_REL || scancode == RSHIFT_REL ||
         scancode == LCTRL || scancode == LCTRL_REL) {
-        key_queue = scancode;
-        keyboard_interrupt_received = 1;
         return;
     }
 
     /* Only process key presses, not releases (release codes have bit 7 set) */
     if (scancode & 0x80) {
-        key_queue = scancode;
-        keyboard_interrupt_received = 1;
         return;
     }
 
     /* Caps Lock toggle */
     if (scancode == CAPS_LOCK) {
         caps_active = !caps_active;
-        key_queue = scancode;
-        keyboard_interrupt_received = 1;
         return;
     }
 
     if (scancode < SC_MAX) {
         char c = resolve_char(scancode);
         if (c == 0) {
-            key_queue = scancode;
-            keyboard_interrupt_received = 1;
             return;
         }
 
@@ -179,15 +154,6 @@ static void keyboard_callback(registers_t regs __attribute__((unused)))
         }
     }
 
-    key_queue = scancode;
-    keyboard_interrupt_received = 1;
-}
-
-char keyboard_getchar(void)
-{
-    char c = key_queue;
-    key_queue = 0;
-    return c;
 }
 
 void keyboard_init(void)
