@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <string.h>
 
 static void reverse(char s[]);
@@ -24,4 +23,4 @@ void reverse(char s[]) {
         s[i] = s[j];
         s[j] = c;
     }
-} 
+}

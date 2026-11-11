@@ -1,5 +1,4 @@
 #include <string.h>
-#include <stdio.h>
 #include <drivers/screen.h>
 #include <drivers/types.h>
 #include <kernel/art.h>

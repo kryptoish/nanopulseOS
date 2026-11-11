@@ -1,6 +1,3 @@
-#include <stdio.h>
-
-#include <kernel/tty.h>
 #include <kernel/ramfs.h>
 #include <drivers/screen.h>
 #include <drivers/keyboard.h>
@@ -52,7 +49,7 @@ static void init_framebuffer_from_mb2(u32 magic, u32 mbi_addr) {
 void kernel_main(u32 magic, u32 mbi_addr) {
     init_framebuffer_from_mb2(magic, mbi_addr);
 
-	terminal_initialize();
+	clear_screen();
 	isr_install();
 	kprint("=== nanopulseOS Kernel Starting ===\n");
 
@@ -70,7 +67,7 @@ void kernel_main(u32 magic, u32 mbi_addr) {
 	kprint("OS initialization successful!\n");
 	delay_ms(500);
 	clear_screen();
-	
+
 	#define LP "               "
 	kprint(
 		"                            Welcome to nanopulseOS!\n"
@@ -105,7 +102,7 @@ void kernel_main(u32 magic, u32 mbi_addr) {
 	clear_screen();
 	kprint("nanopulseOS\n");
 	kprint("> ");
-	
+
 	while(1) {
         // Check for keyboard input
 		if (check_keyboard_interrupt()) {
