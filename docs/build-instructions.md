@@ -1,6 +1,6 @@
 # Build Instructions
 
-Lost? Read https://wiki.osdev.org/GCC_Cross-Compiler. This is just the short 
+Lost? Read https://wiki.osdev.org/GCC_Cross-Compiler. This is just the short cut down version for quick setup
 
 Note: the cross-compiler will be put next to your src code not inside (../)
 

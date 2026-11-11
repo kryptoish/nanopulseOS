@@ -12,7 +12,7 @@
 /* Shadow text buffer (char/attr pairs) used in place of 0xB8000. */
 extern u8 vga_shadow[FB_TEXT_COLS * FB_TEXT_ROWS * 2];
 
-/* Init from multiboot2 framebuffer tag. Returns 1 on success. */
+/* Init from multiboot2 framebuffer. Returns 1 on success. */
 int  fb_init(u32 fb_addr_lo, u32 fb_pitch, u32 fb_width, u32 fb_height, u8 bpp);
 
 /* Render the shadow buffer to the framebuffer. */

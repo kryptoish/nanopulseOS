@@ -22,6 +22,7 @@ struct mb2_fb_tag {
     u8  reserved[2];
 };
 
+// TODO: move this to seperate multiboot2.c later (for cleanliness & if more mb2 tags needed)
 static void init_framebuffer_from_mb2(u32 magic, u32 mbi_addr) {
     if (magic != 0x36d76289 || mbi_addr == 0) return;
 
