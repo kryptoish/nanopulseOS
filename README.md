@@ -74,3 +74,4 @@ If you’re interested in contributing to NanoPulse OS, feel free to fork the re
 ### Personal note for next steps in work: 
 
 Custom Interperator IDE cmd -> eso-interpretor (soon to be added)
+NOTE: absolute no AI used for the creation of this learning project
