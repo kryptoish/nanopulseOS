@@ -8,7 +8,7 @@
 
 ---
 
-**NanoPulse OS** is a lightweight, portable, live operating system that runs directly from a USB stick (x86-32 i686). It is designed for learning/hobby usage and includes -> generative art, simple retro games, an experimental IDE with a custom esoteric programming language (Crowbar), portability, and reminiscent text based style of the past. NanoPulse OS is all about providing a minimal, fun, and interactive environment for exploration and creation. It leaves absolutely no trace on your computer after shutdown.
+**NanoPulse OS** is a lightweight, portable, live operating system that runs directly from a USB stick (x86-32 i686). It is designed for learning/hobby usage and includes -> generative art, simple retro games, an experimental IDE with a custom esoteric programming language (Crowbar), portability, and reminiscent text style of the past. NanoPulse OS is all about providing a minimal, fun, and interactive environment for exploration and creation. It leaves absolutely no trace on your computer after shutdown.
 
 ---
 
@@ -26,7 +26,7 @@ Check out [Build Instructions](/docs/build-instructions.md)
 4. Insert the USB stick into any computer and reboot, ensuring the BIOS/UEFI settings allow booting from USB (secure boot off).
 5. NanoPulse OS will boot directly from the USB be functional.
 
-You can also try it out on the website which I have added a v86 emulator (Wallahi don't ask me how it works -> got it from here: ) in a website.
+You can also try it out on the website which I have added a v86 emulator (Don't ask me how it works -> got it from [here](https://github.com/copy/v86)) in a website.
 
 ---
 
@@ -40,7 +40,7 @@ Type ```help``` into the terminal to see all available commands.
 
 - Kernel written in C & x86 Assembly
 - Build system uses GCC, Makefile & grubmkrescue for .iso generation
-- Graphics is a single framebuffer 32-bit mode (for that old effect)
+- Graphics is a single framebuffer 32-bit mode
 - Uses GRUB for bootloading
 - Some posix cmds and mostly just fun little extra features (use ```help```)
 
