@@ -26,7 +26,7 @@ Check out [Build Instructions](/docs/build-instructions.md)
 4. Insert the USB stick into any computer and reboot, ensuring the BIOS/UEFI settings allow booting from USB (secure boot off).
 5. NanoPulse OS will boot directly from the USB be functional.
 
-You can also try it out on the website which I have added a v86 emulator (Don't ask me how it works -> got it from [here](https://github.com/copy/v86)) in a website.
+You can also try it out on the website which I have added a v86 emulator (Don't ask me how it works -> got it from [here](https://github.com/copy/v86)) in  [nanopulse.org](https://www.nanopulseos.org/).
 
 ---
 
