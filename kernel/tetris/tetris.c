@@ -503,3 +503,5 @@ void tetris_run(void) {
     keyboard_set_raw_mode(0);
     keyboard_clear_cancel();
 }
+
+/* Logic & design inspired by jakesgordon/javascript-tetris and svedev0/tetris-c on GitHub. */

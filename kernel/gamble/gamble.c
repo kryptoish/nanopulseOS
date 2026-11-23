@@ -42,7 +42,7 @@ typedef struct {
 } skin_t;
 
 static const skin_t skins[] = {
-    /* -------- COMMON (everyday bugs) -------- */
+    /* COMMON (everyday bugs) */
     { "404",        "404 Not Found",         R_COMMON,    { "  ______  ", " | 404  | ", "  ------  " } },
     { "Syntax",     "Syntax Error",          R_COMMON,    { "  x = 5   ", "  if ( {  ", "   ???    " } },
     { "NoSemi",     "Missing Semicolon",     R_COMMON,    { "  code    ", "  code    ", "  line;   " } },
@@ -56,7 +56,7 @@ static const skin_t skins[] = {
     { "OffByOne",   "Off-By-One",            R_COMMON,    { " 0 1 ... n", "    ^     ", "  n-1? n? " } },
     { "Unused",     "Unused Variable",       R_COMMON,    { "  int x;  ", "   ...    ", "  lonely  " } },
 
-    /* -------- UNCOMMON -------- */
+    /* UNCOMMON */
     { "Segfault",   "Segmentation Fault",    R_UNCOMMON,  { "  [MEM]   ", "  ** **   ", "  CRASH   " } },
     { "StackOver",  "Stack Overflow",        R_UNCOMMON,  { "  [][][]  ", "  [][][]  ", "   ^^^!   " } },
     { "BufOver",    "Buffer Overflow",       R_UNCOMMON,  { "  [####]  ", "  [####>> ", "    >>>>  " } },
@@ -68,7 +68,7 @@ static const skin_t skins[] = {
     { "HeapCorr",   "Heap Corruption",       R_UNCOMMON,  { "  HEAP~~  ", "  ~corr~  ", "  broken  " } },
     { "ForkBomb",   "Fork Bomb",             R_UNCOMMON,  { "  () ()   ", " () () () ", "  spawn.. " } },
 
-    /* -------- RARE -------- */
+    /* RARE */
     { "KPanic",     "Kernel Panic",          R_RARE,      { " [KERNEL] ", "  PANIC!! ", "   !!!    " } },
     { "BSOD",       "Blue Screen of Death",  R_RARE,      { "  :-(     ", "  0x0000  ", "  dump..  " } },
     { "DiskFail",   "Disk Failure",          R_RARE,      { "  [HDD]   ", "   XXX    ", "  dying   " } },
@@ -78,7 +78,7 @@ static const skin_t skins[] = {
     { "NoBoot",     "Bootloader Missing",    R_RARE,      { " [no boot]", "   ...    ", "   void   " } },
     { "BadCert",    "Invalid Certificate",   R_RARE,      { "  [cert]  ", "   /X/    ", "  invalid " } },
 
-    /* -------- EPIC -------- */
+    /* EPIC */
     { "Fatal",      "Fatal Exception",       R_EPIC,      { "  FATAL   ", "  [0xDE]  ", "  EXIT!!  " } },
     { "Meltdown",   "CPU Meltdown",          R_EPIC,      { "  [CPU]   ", "  ~melt~  ", "   drip   " } },
     { "Quantum",    "Quantum Glitch",        R_EPIC,      { "   |0>    ", "   + |1>  ", "   ???    " } },
@@ -86,7 +86,7 @@ static const skin_t skins[] = {
     { "HCF",        "Halt And Catch Fire",   R_EPIC,      { "   HCF    ", "  (*_*)   ", "  /FIRE\\  " } },
     { "DivZero",    "Divide By Zero",        R_EPIC,      { "   1 / 0  ", "   = ??   ", "  [NaN!]  " } },
 
-    /* -------- LEGENDARY -------- */
+    /* LEGENDARY */
     { "0xDEADBEEF", "0xDEADBEEF",            R_LEGENDARY, { "  DEAD    ", "  BEEF    ", " 0xDEAD!  " } },
     { "Y2K",        "The Y2K Bug",           R_LEGENDARY, { "  1999    ", "   +1     ", "  19100!  " } },
     { "Heartbleed", "Heartbleed",            R_LEGENDARY, { "   <3     ", "  bleed.. ", "   /!\\    " } },
@@ -130,7 +130,7 @@ static const case_t cases[4] = {
       0x07, "steady rares, faint whiff of epic"    },
     { "Gold",     750,
       {  3400,    3500,    2000, 950,   150  },
-      0x0E, "solid rare/epic odds, real legendary shot" },
+      0x0E, "good rare/epic odds, real legendary shot" },
     { "Diamond",  2000,
       {  1400,    2500,    3000, 2300,  800  },
       0x0B, "elite tier - best legendary rate"      },
@@ -649,13 +649,13 @@ static void try_open_case(int case_id, const char **status, u8 *status_color) {
 
     coins -= cs->price;
     int winner = roll_skin(case_id);
+    inventory_add(winner);
 
     animate_case_open(case_id, winner);
     if (keyboard_cancel_requested()) return;
     reveal_winner(winner);
     if (keyboard_cancel_requested()) return;
 
-    inventory_add(winner);
     wait_any_key();
 
     *status = 0;
