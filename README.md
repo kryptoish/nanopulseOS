@@ -4,7 +4,7 @@
   <img alt="NanoPulse OS Logo" src="/screenshot/NanoPulse-OS-Logo.png">
 </picture>
 
-# **NanoPulse OS**: **A NANO Programmed OS that has Pulse**
+# **NanoPulse OS**
 
 ---
 
